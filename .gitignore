@@ -1,0 +1,3 @@
+# ignore the tex files of the paper
+tex/*
+
