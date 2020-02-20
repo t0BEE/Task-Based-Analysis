@@ -1,3 +1,6 @@
 # ignore the tex files of the paper
 tex/*
 
+# ignore CLion files
+openMP/.idea/*
+openMP/cmake-build-debug/*
