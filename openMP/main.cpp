@@ -1,8 +1,9 @@
 #include <iostream>
 #include <cstdlib>
 #include <cmath>
+#include <chrono>
 
-#define VECTOR_SIZE 100
+#define VECTOR_SIZE 10000
 
 
 float vectors[2][VECTOR_SIZE];
@@ -26,6 +27,8 @@ void sum_vector(int vectorIndex, int depth = 1){
 }
 
 int main(int argc, char *argv[]) {
+    auto start = std::chrono::high_resolution_clock::now();
+
     // parse parameters
     // first parameter: how often calculate from one vector to another
     // second parameter: task size (how many tasks per vector, VECTOR_SIZE/task size)
@@ -41,19 +44,35 @@ int main(int argc, char *argv[]) {
 
     // fill the first vector
     for(float & i : vectors[0]){
-        i = fabsf(float(rand()) / float(RAND_MAX) * 100);
+        i = fabsf(float(rand()) / float(RAND_MAX) * 10);
     }
 
     // start the actual benchmark workload
     for(int i = 0; i < turns; i++){
         for(int j = 0; j < VECTOR_SIZE; j++){
-            vectors[(i + 1) % 2][j] = fabsf(std::sin(vectors[i % 2][j])) * 100;
+            vectors[(i + 1) % 2][j] = fabsf(std::sin(vectors[i % 2][j])) * 10;
         }
     }
 
     // aggregate the vector elements in a parallel tree structure
     // if turns mod 2 = 0, results are in vector at 0
+
+    for (int k = 0; k < VECTOR_SIZE; ++k) {
+        vectors[(turns +1) % 2][k] = vectors[turns % 2][k];
+    }
+    float result = 0.0;
+    for (int i = 0; i < VECTOR_SIZE; ++i) {
+        result += vectors[(turns + 1) % 2][i];
+    }
+
     sum_vector(turns % 2);
+
+    std::cout << result << std::endl;
+    std::cout << vectors[0][0] << std::endl;
+
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    std::cout << "Execution time: " << duration.count() << std::endl;
 
     return 0;
 }
