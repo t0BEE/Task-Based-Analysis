@@ -13,22 +13,18 @@ void sum_vector(int vectorIndex, int depth = 1){
     if (stepSize > VECTOR_SIZE) return;
     #pragma omp parallel
     {
-#pragma omp single
-        {
-            for (int i = 0; i < VECTOR_SIZE; i += stepSize) {
-            #pragma omp task
-                {
-                    // the amount of tasks it not always dividable by 2,
-                    // the result of the last task has to be added to the previous result
-                    // this is the case if the modulo calculation of the vector size is greater or equal to the half of the step size
-                    if (i > VECTOR_SIZE - stepSize) {
-                        if (VECTOR_SIZE % stepSize >= stepSize / 2) {
-                            vectors[vectorIndex][i - stepSize] += vectors[vectorIndex][i];
-                        }
-                    } else {
-                        vectors[vectorIndex][i] += vectors[vectorIndex][i + (stepSize / 2)];
-                    }
+        #pragma omp single
+        #pragma omp taskloop
+        for (int i = 0; i < VECTOR_SIZE; i += stepSize) {
+            // the amount of tasks it not always dividable by 2,
+            // the result of the last task has to be added to the previous result
+            // this is the case if the modulo calculation of the vector size is greater or equal to the half of the step size
+            if (i > VECTOR_SIZE - stepSize) {
+                if (VECTOR_SIZE % stepSize >= stepSize / 2) {
+                    vectors[vectorIndex][i - stepSize] += vectors[vectorIndex][i];
                 }
+            } else {
+                vectors[vectorIndex][i] += vectors[vectorIndex][i + (stepSize / 2)];
             }
         }
     }
@@ -59,8 +55,23 @@ int main(int argc, char *argv[]) {
 
     // start the actual benchmark workload
     for(int i = 0; i < turns; i++){
-        for(int j = 0; j < VECTOR_SIZE; j++){
-            vectors[(i + 1) % 2][j] = fabsf(std::sin(vectors[i % 2][j])) * 10;
+	#pragma omp parallel
+        {
+	    #pragma omp single
+            {
+                int nrTasks = (int) std::ceil(VECTOR_SIZE / taskSize);
+		for (int k = 0; k < nrTasks - 1; k++) {
+		    #pragma omp task
+		    {
+			for(int j = k * taskSize; j < (k + 1) * taskSize; j++) {
+                            vectors[(i + 1) % 2][j] = fabsf(std::sin(vectors[i % 2][j])) * 10;
+			}
+		    }
+		}
+		for(int j = (nrTasks - 1) * taskSize; j < VECTOR_SIZE; j++) {
+                    vectors[(i + 1) % 2][j] = fabsf(std::sin(vectors[i % 2][j])) * 10;
+		}
+	    }
         }
     }
 
