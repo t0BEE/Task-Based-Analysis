@@ -11,20 +11,22 @@ float vectors[2][VECTOR_SIZE];
 void sum_vector(int vectorIndex, int depth = 1){
     int stepSize = (int) pow( 2, depth);
     if (stepSize > VECTOR_SIZE) return;
-    for(int i = 0; i < VECTOR_SIZE; i+=stepSize){
-    // the amount of tasks it not always dividable by 2,
-    // the result of the last task has to be added to the previous result
-    // this is the case if the modulo calculation of the vector size is greater or equal to the half of the step size
-        if(i > VECTOR_SIZE - stepSize) {
+    for (int i = 0; i < VECTOR_SIZE; i += stepSize) {
+        // the amount of tasks it not always dividable by 2,
+        // the result of the last task has to be added to the previous result
+        // this is the case if the modulo calculation of the vector size is greater or equal to the half of the step size
+        if (i > VECTOR_SIZE - stepSize) {
             if (VECTOR_SIZE % stepSize >= stepSize / 2) {
                 vectors[vectorIndex][i - stepSize] += vectors[vectorIndex][i];
             }
             break;
         }
-        vectors[vectorIndex][i] += vectors[vectorIndex][i+(stepSize/2)];
+
+        vectors[vectorIndex][i] += vectors[vectorIndex][i + (stepSize / 2)];
     }
     sum_vector(vectorIndex, depth + 1);
 }
+
 
 int main(int argc, char *argv[]) {
     auto start = std::chrono::high_resolution_clock::now();
@@ -56,18 +58,8 @@ int main(int argc, char *argv[]) {
 
     // aggregate the vector elements in a parallel tree structure
     // if turns mod 2 = 0, results are in vector at 0
-
-    for (int k = 0; k < VECTOR_SIZE; ++k) {
-        vectors[(turns +1) % 2][k] = vectors[turns % 2][k];
-    }
-    float result = 0.0;
-    for (int i = 0; i < VECTOR_SIZE; ++i) {
-        result += vectors[(turns + 1) % 2][i];
-    }
-
     sum_vector(turns % 2);
 
-    std::cout << result << std::endl;
     std::cout << vectors[0][0] << std::endl;
 
     auto end = std::chrono::high_resolution_clock::now();
