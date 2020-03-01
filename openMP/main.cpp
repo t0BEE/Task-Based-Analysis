@@ -11,18 +11,26 @@ float vectors[2][VECTOR_SIZE];
 void sum_vector(int vectorIndex, int depth = 1){
     int stepSize = (int) pow( 2, depth);
     if (stepSize > VECTOR_SIZE) return;
-    for (int i = 0; i < VECTOR_SIZE; i += stepSize) {
-        // the amount of tasks it not always dividable by 2,
-        // the result of the last task has to be added to the previous result
-        // this is the case if the modulo calculation of the vector size is greater or equal to the half of the step size
-        if (i > VECTOR_SIZE - stepSize) {
-            if (VECTOR_SIZE % stepSize >= stepSize / 2) {
-                vectors[vectorIndex][i - stepSize] += vectors[vectorIndex][i];
+    #pragma omp parallel
+    {
+#pragma omp single
+        {
+            for (int i = 0; i < VECTOR_SIZE; i += stepSize) {
+            #pragma omp task
+                {
+                    // the amount of tasks it not always dividable by 2,
+                    // the result of the last task has to be added to the previous result
+                    // this is the case if the modulo calculation of the vector size is greater or equal to the half of the step size
+                    if (i > VECTOR_SIZE - stepSize) {
+                        if (VECTOR_SIZE % stepSize >= stepSize / 2) {
+                            vectors[vectorIndex][i - stepSize] += vectors[vectorIndex][i];
+                        }
+                    } else {
+                        vectors[vectorIndex][i] += vectors[vectorIndex][i + (stepSize / 2)];
+                    }
+                }
             }
-            break;
         }
-
-        vectors[vectorIndex][i] += vectors[vectorIndex][i + (stepSize / 2)];
     }
     sum_vector(vectorIndex, depth + 1);
 }
