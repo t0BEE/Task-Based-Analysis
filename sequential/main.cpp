@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
 
     // start the actual benchmark workload
     for(int i = 0; i < turns; i++){
-        int nrTasks = (int) std::ceil(VECTOR_SIZE / taskSize);
+        int nrTasks = (int) std::ceil(VECTOR_SIZE / (float) taskSize);
 	for (int k = 0; k < nrTasks - 1; k++) {
 	    for(int j = k * taskSize; j < (k + 1) * taskSize; j++) {
                 vectors[(i + 1) % 2][j] = fabsf(std::sin(vectors[i % 2][j])) * 10;
