@@ -25,7 +25,6 @@ int fibonacci(int input) {
 
 
 int main(int argc, char *argv[]) {
-    auto start = std::chrono::high_resolution_clock::now();
 
     // parse parameters
     // only one parameter of which the fibonacci number shall be calculated
@@ -34,6 +33,8 @@ int main(int argc, char *argv[]) {
 	return -1;
     }
     int fibNumber = atoi(argv[1]);
+
+    auto start = std::chrono::high_resolution_clock::now();
 
     // call fibonacci function
     int result = fibonacci(fibNumber);

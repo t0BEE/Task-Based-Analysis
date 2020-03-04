@@ -28,7 +28,6 @@ void sum_vector(int vectorIndex, int depth = 1){
 
 
 int main(int argc, char *argv[]) {
-    auto start = std::chrono::high_resolution_clock::now();
 
     // parse parameters
     // first parameter: how often calculate from one vector to another
@@ -47,6 +46,9 @@ int main(int argc, char *argv[]) {
     for(float & i : vectors[0]){
         i = fabsf(float(rand()) / float(RAND_MAX) * 10);
     }
+
+    // start time tracking
+    auto start = std::chrono::high_resolution_clock::now();
 
     // start the actual benchmark workload
     for(int i = 0; i < turns; i++){

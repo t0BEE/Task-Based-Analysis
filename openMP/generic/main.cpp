@@ -33,7 +33,6 @@ void sum_vector(int vectorIndex, int depth = 1){
 
 
 int main(int argc, char *argv[]) {
-    auto start = std::chrono::high_resolution_clock::now();
 
     // parse parameters
     // first parameter: how often calculate from one vector to another
@@ -53,13 +52,18 @@ int main(int argc, char *argv[]) {
         i = fabsf(float(rand()) / float(RAND_MAX) * 10);
     }
 
+    // calculate the number of tasks needed
+    int nrTasks = (int) std::ceil(VECTOR_SIZE / (float) taskSize);
+
+    //start time tracking
+    auto start = std::chrono::high_resolution_clock::now();
+
     // start the actual benchmark workload
     for(int i = 0; i < turns; i++){
 	#pragma omp parallel
         {
 	    #pragma omp single
             {
-                int nrTasks = (int) std::ceil(VECTOR_SIZE / taskSize);
 		for (int k = 0; k < nrTasks - 1; k++) {
 		    #pragma omp task
 		    {
