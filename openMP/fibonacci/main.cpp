@@ -2,10 +2,10 @@
 #include <iostream>
 
 
-int fibonacci(int input) {
+long long fibonacci(long long input) {
     if (input < 2 ) return input;
 
-    int x, y;
+    long long x, y;
     #pragma omp parallel
     {
         #pragma omp single
@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
     auto start = std::chrono::high_resolution_clock::now();
 
     // call fibonacci function
-    int result = fibonacci(fibNumber);
+    long long result = fibonacci((long long) fibNumber);
 
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
