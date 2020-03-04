@@ -5,5 +5,8 @@ tex/*
 build_output/*
 
 # ignore CLion files
-openMP/.idea/*
-openMP/cmake-build-debug/*
+*.idea*
+*cmake-build-debug*
+
+# ignore stackdumps
+*stackdump*
