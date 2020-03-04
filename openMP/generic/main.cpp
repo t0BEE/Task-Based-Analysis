@@ -79,11 +79,13 @@ int main(int argc, char *argv[]) {
     // if turns mod 2 = 0, results are in vector at 0
     sum_vector(turns % 2);
 
-    std::cout << vectors[0][0] << std::endl;
 
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
     std::cout << "Execution time: " << duration.count() << std::endl;
+
+    // output result for debugging
+    std::cout << vectors[0][0] << std::endl;
 
     return 0;
 }

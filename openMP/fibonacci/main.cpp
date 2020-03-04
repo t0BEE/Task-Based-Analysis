@@ -6,17 +6,20 @@ int fibonacci(int input) {
     if (input < 2 ) return input;
 
     int x, y;
-
-    #pragma omp task
+    #pragma omp parallel
     {
-        x = fibonacci(input - 1);
+        #pragma omp single
+	{
+            #pragma omp task
+            {
+                x = fibonacci(input - 1);
+            }
+            #pragma omp task
+            {
+                y = fibonacci(input - 2);
+            }
+        }
     }
-    #pragma omp task
-    {
-        y = fibonacci(input - 2);
-    }
-
-    #pragma omp taskwait
     return x + y;
 }
 
@@ -38,6 +41,9 @@ int main(int argc, char *argv[]) {
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
     std::cout << "Execution time: " << duration.count() << std::endl;
+
+    // output result for debugging
+    std::cout << result << std::endl;
 
     return 0;
 }

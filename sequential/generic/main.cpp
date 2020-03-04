@@ -40,8 +40,6 @@ int main(int argc, char *argv[]) {
     int turns = atoi(argv[1]);
     int taskSize = atoi(argv[2]);
 
-    std::cout << "Start the sequential execution with " << turns << " turns and a task size of " << taskSize << std::endl;
-
     // seed the random number generator with a constant to create a deterministic generation
     srand(42);
 
@@ -67,12 +65,12 @@ int main(int argc, char *argv[]) {
     // if turns mod 2 = 0, results are in vector at 0
     sum_vector(turns % 2);
 
-    // Output the solution for debugging
-    std::cout << vectors[0][0] << std::endl;
-
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
     std::cout << "Execution time: " << duration.count() << std::endl;
+
+    // Output the solution for debugging
+    std::cout << vectors[0][0] << std::endl;
 
     return 0;
 }
