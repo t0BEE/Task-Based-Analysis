@@ -35,3 +35,9 @@ echo -e "--- ${CYAN}Build sequential mergesort algorithm ${NC}---"
 rm ../build_output/CMakeCache.txt
 cmake ../sequential/mergeSort
 cmake --build .
+
+# build openMP mergesort program
+echo -e "--- ${CYAN}Build openMP mergesort algorithm ${NC}---"
+rm ../build_output/CMakeCache.txt
+cmake ../openMP/mergeSort
+cmake --build .
