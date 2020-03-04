@@ -29,3 +29,9 @@ echo -e "--- ${CYAN}Build openMP fibonacci algorithm ${NC}---"
 rm ../build_output/CMakeCache.txt
 cmake ../openMP/fibonacci
 cmake --build .
+
+# build sequential mergesort program
+echo -e "--- ${CYAN}Build sequential mergesort algorithm ${NC}---"
+rm ../build_output/CMakeCache.txt
+cmake ../sequential/mergeSort
+cmake --build .
