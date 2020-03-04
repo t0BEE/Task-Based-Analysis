@@ -61,7 +61,7 @@ void mergeSort(int left, int right) {
 int main(int argc, char *argv[]) {
     // if parameter is 0, use debug mode
     int debug = 0;
-    if (argc = 2) {
+    if (argc == 2) {
         int param = atoi(argv[1]);
 	if (param == 0) debug = 1;
     }
