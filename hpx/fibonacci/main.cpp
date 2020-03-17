@@ -1,10 +1,14 @@
 #include <hpx/hpx_main.hpp>
 #include <hpx/include/iostreams.hpp>
+#include <hpx/include/async.hpp>
 #include <chrono>
 
 long long fibonacci(long long input) {
 	if (input < 2) return input;
-	return fibonacci(input - 1) + fibonacci(input - 2);
+
+	hpx::future<long long> n1 = hpx::async(fibonacci, input - 1);
+	hpx::future<long long> n2 = hpx::async(fibonacci, input - 2);
+	return n1.get() + n2.get();
 }
 
 int main(int argc, char *argv[]){
