@@ -30,6 +30,12 @@ rm ../build_output/CMakeCache.txt
 cmake ../openMP/fibonacci
 cmake --build .
 
+# build hpx fibonacci algorithm
+echo -e "--- ${CYAN}Build HPX fibonacci algorithm ${NC}---"
+rm ../build_output/CMakeCache.txt
+cmake ../hpx/fibonacci
+cmake --build .
+
 # build sequential mergesort program
 echo -e "--- ${CYAN}Build sequential mergesort algorithm ${NC}---"
 rm ../build_output/CMakeCache.txt
