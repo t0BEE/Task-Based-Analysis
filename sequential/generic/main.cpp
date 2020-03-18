@@ -57,10 +57,10 @@ int main(int argc, char *argv[]) {
 	    for(int j = k * taskSize; j < (k + 1) * taskSize; j++) {
                 vectors[(i + 1) % 2][j] = fabsf(std::sin(vectors[i % 2][j])) * 10;
 	    }
-	    for(int j = (nrTasks - 1) * taskSize; j < VECTOR_SIZE; j++) {
-                vectors[(i + 1) % 2][j] = fabsf(std::sin(vectors[i % 2][j])) * 10;
-	    }
-        }
+	}
+	for(int j = (nrTasks - 1) * taskSize; j < VECTOR_SIZE; j++) {
+            vectors[(i + 1) % 2][j] = fabsf(std::sin(vectors[i % 2][j])) * 10;
+	}
     }
 
     // aggregate the vector elements in a parallel tree structure
