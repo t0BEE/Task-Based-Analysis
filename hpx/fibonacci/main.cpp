@@ -1,4 +1,4 @@
-#include <hpx/hpx_main.hpp>
+#include <hpx/hpx_init.hpp>
 #include <hpx/include/iostreams.hpp>
 #include <hpx/include/async.hpp>
 #include <chrono>
@@ -11,14 +11,11 @@ long long fibonacci(long long input) {
 	return n1.get() + n2.get();
 }
 
-int main(int argc, char *argv[]){
-    // parse parameters
-    // only one parameter of which the fibonacci number shall be calculated
-    if (argc != 2) {
-        hpx::cout << "Parameters do not match!" << "\n" << hpx::flush;
-        return -1;
-    }
-    int fibNumber = atoi(argv[1]);
+int hpx_main(hpx::program_options::variables_map& vm) {
+    // extract command line arguments
+    int fibNumber = vm["n-value"].as<int>();
+
+    hpx::cout << fibNumber << "\n" << hpx::flush;
 
     auto start = std::chrono::high_resolution_clock::now();
 
@@ -32,5 +29,22 @@ int main(int argc, char *argv[]){
     // output result for debugging
     hpx::cout << result << "\n" << hpx::flush;
 
-    return 0;
+    // shutdoen HPX environment
+    return hpx::finalize();
+
+}
+
+
+int main(int argc, char *argv[]){
+    // Configure application-specific options
+    hpx::program_options::options_description
+       desc_commandline("Usage: " HPX_APPLICATION_STRING " [options]");
+
+    desc_commandline.add_options()
+        ( "n-value",
+          hpx::program_options::value<int>()->default_value(10),
+          "n value for the Fibonacci function");
+
+    // Init and run HPX runtime environment
+    return hpx::init(desc_commandline, argc, argv);
 }
