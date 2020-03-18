@@ -55,14 +55,19 @@ int hpx_main(hpx::program_options::variables_map& vm) {
     // start the actual benchmark workload
     for(int i = 0; i < turns; i++){
         int nrTasks = (int) std::ceil(VECTOR_SIZE / taskSize);
-	for (int k = 0; k < nrTasks - 1; k++) {
-	    for(int j = k * taskSize; j < (k + 1) * taskSize; j++) {
-                vectors[(i + 1) % 2][j] = fabsf(std::sin(vectors[i % 2][j])) * 10;
-	    }
-	}
+
+        hpx::future<void> loop = hpx::parallel::v2::for_loop(
+	    hpx::parallel::execution::parallel_task_policy(),
+	    0, nrTasks - 1, [&](int k){
+	        for(int j = k * taskSize; j < (k + 1) * taskSize; j++) {
+                    vectors[(i + 1) % 2][j] = fabsf(std::sin(vectors[i % 2][j])) * 10;
+		}
+	});
+
 	for(int j = (nrTasks - 1) * taskSize; j < VECTOR_SIZE; j++) {
             vectors[(i + 1) % 2][j] = fabsf(std::sin(vectors[i % 2][j])) * 10;
 	}
+	loop.get();
     }
 
     // aggregate the vector elements in a parallel tree structure

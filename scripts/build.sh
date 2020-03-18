@@ -18,6 +18,12 @@ rm ../build_output/CMakeCache.txt
 cmake ../openMP/generic
 cmake --build .
 
+# build hpx generic algorithm
+echo -e "--- ${CYAN}Build HPX generic algorithm ${NC}---"
+rm ../build_output/CMakeCache.txt
+cmake ../hpx/generic
+cmake --build .
+
 # build sequential fibonacci program
 echo -e "--- ${CYAN}Build sequential fibonacci algorithm ${NC}---"
 rm ../build_output/CMakeCache.txt
