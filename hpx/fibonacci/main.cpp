@@ -27,7 +27,7 @@ int hpx_main(hpx::program_options::variables_map& vm) {
     // output result for debugging
     hpx::cout << result << "\n" << hpx::flush;
 
-    // shutdoen HPX environment
+    // shutdown HPX environment
     return hpx::finalize();
 
 }

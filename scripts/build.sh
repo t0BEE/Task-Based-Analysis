@@ -53,3 +53,9 @@ echo -e "--- ${CYAN}Build openMP mergesort algorithm ${NC}---"
 rm ../build_output/CMakeCache.txt
 cmake ../openMP/mergeSort
 cmake --build .
+
+# build hpx mergesort algorithm
+echo -e "--- ${CYAN}Build HPX mergesort algorithm ${NC}---"
+rm ../build_output/CMakeCache.txt
+cmake ../hpx/mergeSort
+cmake --build .

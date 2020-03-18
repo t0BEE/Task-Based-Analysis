@@ -2,6 +2,9 @@
 #include <chrono>
 #include <cstdlib>
 #include <cmath>
+#include <hpx/hpx_init.hpp>
+#include <hpx/include/iostreams.hpp>
+#include <hpx/include/async.hpp>
 
 #define VECTOR_SIZE 10000
 
@@ -53,18 +56,16 @@ void merge(int left, int middle, int right) {
 void mergeSort(int left, int right) {
     if(!(left < right)) return;
     int middle = (left + right) / 2;
-    mergeSort(left, middle);
-    mergeSort(middle + 1, right);
+    hpx::future<void> m1 = hpx::async(mergeSort, left, middle);
+    hpx::future<void> m2 = hpx::async(mergeSort, middle + 1, right);
+    m1.get();
+    m2.get();
     merge(left, middle, right);
 }
 
-int main(int argc, char *argv[]) {
+int hpx_main(hpx::program_options::variables_map& vm) {
     // if parameter is 0, use debug mode
-    int debug = 0;
-    if (argc == 2) {
-        int param = atoi(argv[1]);
-	if (param == 0) debug = 1;
-    }
+    int debug = vm["debug"].as<int>();
     
 
     // seed the random number generator with a constant to create a deterministic generation
@@ -80,13 +81,28 @@ int main(int argc, char *argv[]) {
 
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end-start);
-    std::cout << "Execution time: " << duration.count() << std::endl;
+    hpx::cout << "Execution time: " << duration.count() << "\n" << hpx::flush;
 
     if (debug) {
         for(int l = 0; l < VECTOR_SIZE; l++){
-            std::cout << vector[l] << ", ";
+            hpx::cout << vector[l] << ", ";
 	}
-	std::cout << std::endl;
+	hpx::cout << "\n" << hpx::flush;
     }
-    return 0;
+    return hpx::finalize();
+}
+
+
+int main(int argc, char *argv[]) {
+    // Configure application-specific options
+    hpx::program_options::options_description
+       desc_commandline("Usage: " HPX_APPLICATION_STRING " [options]");
+
+    desc_commandline.add_options()
+        ( "debug",
+          hpx::program_options::value<int>()->default_value(0),
+          "If set, use degug mode");
+
+    // Init and run HPX runtime environment
+    return hpx::init(desc_commandline, argc, argv);
 }
