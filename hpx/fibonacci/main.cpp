@@ -15,8 +15,6 @@ int hpx_main(hpx::program_options::variables_map& vm) {
     // extract command line arguments
     int fibNumber = vm["n-value"].as<int>();
 
-    hpx::cout << fibNumber << "\n" << hpx::flush;
-
     auto start = std::chrono::high_resolution_clock::now();
 
     // call fibonacci function
