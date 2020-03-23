@@ -1,5 +1,10 @@
 # ignore the tex files of the paper
-tex/*
+tex/*.aux
+tex/*.bbl
+tex/*.blg
+tex/*.log
+tex/paper.pdf
+tex/*.gz
 
 # ignore build files
 build_output/*

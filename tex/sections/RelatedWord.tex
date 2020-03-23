@@ -1,0 +1,49 @@
+\section{Related Work}
+\subsection{OpenMP}
+
+
+\cite{Ayguade.2009}
+  - openMP shifts to tasks in version 3.0
+  - introduces task directive, to specify explicit tasks
+  	- explicit -> defined by programmer
+    - implicit tasks are created in parallel regions \cite{MKlemm.2018}
+    --> the program does not need to specify or know about them
+  - explicit tasks can be executed by any thread in the current team
+  - are defined by the task construct and enclose a certain code area defined by the programmer --> task region
+  - like in normal parallel regions variable scopes can be defined by shared, private or firstprivate
+  - by default, a thread is tied to a task as it begins to execute the task
+    - this means that the task is only executed by this thread, however the thread can still execute other tasks in case the task reaches a task scheduling point and has to suspend its work
+    - this restriction can be avoided by defining the tasks untied
+    
+\cite{Qawasmeh.2014}
+  - OpenMP runtime becomes responsible for the scheduling of tasks
+  - task construct allows developers to dynamically create asynchronous units of work
+
+
+\section{HPX}
+- HPX
+  - Veeeery short intro
+  - Tasks in HPX
+    \cite{Kaiser.2009}
+    
+\section{Benchmark Algorithm}
+- Barcelona OpenMP Task Suite (BOTS)
+	- aim of the suite is to provide a collection of benchmarks that would allow vendors to test the impact of different implementation decisions in a multicore architecture
+	- 9 benchmarks
+		> Alignment: align protein sequences against every other sequence using a special algorithm
+		> FFT: Fast Fourier Transformation
+		> Fibonacci: calculation of the nth number in the Fibonacci sequence
+		> Floorplan: compute the optimal floorplan distribution of a number of cells
+		> Health: simulate the Columbian Health Care System
+		> N Queens: the n-queen problem, to find placements of queens on a chessboard under special conditions
+		> Sort: parallel execution of merge sort
+		> SparseLU: LU matrix factorization over sparse matrices
+		> Strassen: hierarchical decomposition of a matrix for multiplication of large dense matrices
+	--> different version of each benchmark and some with cut-off version to avoid high amount of tasks
+	
+	
+  - short overview + concluding algorithms
+  - why to choose on algorithm
+    --> more complexity
+    --> task size / dependencies
+    
