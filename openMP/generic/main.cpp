@@ -33,14 +33,21 @@ void sum_vector(int vectorIndex, int depth = 1){
 
 
 int main(int argc, char *argv[]) {
-
     // parse parameters
     // first parameter: how often calculate from one vector to another
     // second parameter: task size (how many tasks per vector, VECTOR_SIZE/task size)
-    if (argc != 3){
+    // provide --debug as second parameter for a more beautiful output
+    int debug = 0;
+    if (argc == 4){
+        char* debugflag = argv[3];
+        if (strcmp("--debug"),debugflag) debug = 1;
+        else std::cout << "Parameters do not match!" << std::endl;
+    }
+    if (argc > 4){
         std::cout << "Some parameters are missing!" << std::endl;
         return -1;
     }
+
     int turns = atoi(argv[1]);
     int taskSize = atoi(argv[2]);
 
@@ -86,10 +93,11 @@ int main(int argc, char *argv[]) {
 
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-    std::cout << "Execution time: " << duration.count() << std::endl;
+    if (debug) std::cout << "Execution time: " << duration.count() << " ms"<< std::endl;
+    else std::cout << duration.count() << std::endl;
 
-    // output result for debugging
-    std::cout << vectors[0][0] << std::endl;
+    // Output the solution for debugging
+    if (debug) std::cout << vectors[0][0] << std::endl;
 
     return 0;
 }

@@ -25,12 +25,18 @@ long long fibonacci(long long input) {
 
 
 int main(int argc, char *argv[]) {
-
     // parse parameters
     // only one parameter of which the fibonacci number shall be calculated
-    if (argc != 2) {
+    // provide --debug as second parameter for a more beautiful output
+    int debug = 0;
+    if (argc == 3){
+        char* debugflag = argv[2];
+        if (strcmp("--debug"),debugflag) debug = 1;
+        else std::cout << "Parameters do not match!" << std::endl;
+    }
+    if (argc > 3){
         std::cout << "Parameters do not match!" << std::endl;
-	return -1;
+        return -1;
     }
     int fibNumber = atoi(argv[1]);
 
@@ -41,10 +47,11 @@ int main(int argc, char *argv[]) {
 
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-    std::cout << "Execution time: " << duration.count() << std::endl;
+    if (debug) std::cout << "Execution time: " << duration.count() << " ms"<< std::endl;
+    else std::cout << duration.count() << std::endl;
 
     // output result for debugging
-    std::cout << result << std::endl;
+    if (debug) std::cout << result << std::endl;
 
     return 0;
 }
