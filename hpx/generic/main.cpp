@@ -80,7 +80,7 @@ int hpx_main(hpx::program_options::variables_map& vm) {
     else hpx::cout << duration.count() << "\n" << hpx::flush;
 
     // output result for debugging
-    if (debug) hpx::cout << result << "\n" << hpx::flush;
+    if (debug) hpx::cout << vectors[0][0] << "\n" << hpx::flush;
 
     return hpx::finalize();
 }

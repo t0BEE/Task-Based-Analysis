@@ -16,10 +16,9 @@ int main(int argc, char *argv[]){
     int debug = 0;
     if (argc == 3){
         char* debugflag = argv[2];
-        if (strcmp("--debug"),debugflag) debug = 1;
-	else std::cout << "Parameters do not match!" << std::endl;
+        if (!strcmp("--debug",debugflag)) debug = 1;
     }
-    if (argc > 3){
+    if (argc > 3 || (argc == 3 && debug == 0)){
         std::cout << "Parameters do not match!" << std::endl;
 	return -1;
     }

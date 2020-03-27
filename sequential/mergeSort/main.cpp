@@ -2,6 +2,7 @@
 #include <chrono>
 #include <cstdlib>
 #include <cmath>
+#include <cstring>
 
 int vector[VECTOR_SIZE];
 
@@ -66,7 +67,7 @@ int main(int argc, char *argv[]) {
     int debugB = 0;
     if (argc == 2){
         char* debugflag = argv[2];
-        if (strcmp("--debug"),debugflag) debugB = 1;
+        if (!strcmp("--debug",debugflag)) debugB = 1;
     }
 
 

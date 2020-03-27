@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <chrono>
+#include <cstring>
 
 
 float vectors[2][VECTOR_SIZE];
@@ -38,10 +39,9 @@ int main(int argc, char *argv[]) {
     int debug = 0;
     if (argc == 4){
         char* debugflag = argv[3];
-        if (strcmp("--debug"),debugflag) debug = 1;
-        else std::cout << "Parameters do not match!" << std::endl;
+        if (!strcmp("--debug",debugflag)) debug = 1;
     }
-    if (argc > 4){
+    if (argc > 4 || (argc == 4 && debug == 0)){
         std::cout << "Some parameters are missing!" << std::endl;
         return -1;
     }
