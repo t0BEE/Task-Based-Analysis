@@ -3,8 +3,6 @@
 #include <cstdlib>
 #include <cmath>
 
-#define VECTOR_SIZE 10000
-
 int vector[VECTOR_SIZE];
 
 void merge(int left, int middle, int right) {

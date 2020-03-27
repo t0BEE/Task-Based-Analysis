@@ -8,8 +8,6 @@
 #include <hpx/parallel/algorithms/for_loop.hpp>
 #include <hpx/parallel/execution_policy.hpp>
 
-#define VECTOR_SIZE 10000
-
 
 float vectors[2][VECTOR_SIZE];
 

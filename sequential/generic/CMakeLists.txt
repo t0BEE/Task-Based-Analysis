@@ -5,5 +5,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lm")
 set(CXX_STANDARD_REQUIRED 17)
 
 project(sequentialGeneric)
+add_definitions(-DVECTOR_SIZE=10000)
 
 add_executable(sequentialGeneric main.cpp)

@@ -3,8 +3,6 @@
 #include <cmath>
 #include <chrono>
 
-#define VECTOR_SIZE 10000
-
 
 float vectors[2][VECTOR_SIZE];
 
