@@ -77,6 +77,12 @@ int main(int argc, char *argv[]) {
         int param = atoi(argv[1]);
 	if (param == 0) debug = 1;
     }
+    int debugB = 0;
+    if (argc == 2){
+        char* debugflag = argv[2];
+        if (strcmp("--debug"),debugflag) debugB = 1;
+    }
+
     
 
     // seed the random number generator with a constant to create a deterministic generation
@@ -92,7 +98,9 @@ int main(int argc, char *argv[]) {
 
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end-start);
-    std::cout << "Execution time: " << duration.count() << std::endl;
+    if (debugB) std::cout << "Execution time: " << duration.count() << " ms"<< std::endl;
+    else std::cout << duration.count() << std::endl;
+
 
     if (debug) {
         for(int l = 0; l < VECTOR_SIZE; l++){

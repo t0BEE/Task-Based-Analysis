@@ -14,6 +14,7 @@ long long fibonacci(long long input) {
 int hpx_main(hpx::program_options::variables_map& vm) {
     // extract command line arguments
     int fibNumber = vm["n-value"].as<int>();
+    int debug = vm["debug"].as<int>();
 
     auto start = std::chrono::high_resolution_clock::now();
 
@@ -22,10 +23,11 @@ int hpx_main(hpx::program_options::variables_map& vm) {
 
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-    hpx::cout << "Execution time: " << duration.count() << "\n" << hpx::flush;
+    if (debug) hpx::cout << "Execution time: " << duration.count() << "\n" << hpx::flush;
+    else hpx::cout << duration.count() << "\n" << hpx::flush;
 
     // output result for debugging
-    hpx::cout << result << "\n" << hpx::flush;
+    if (debug) hpx::cout << result << "\n" << hpx::flush;
 
     // shutdown HPX environment
     return hpx::finalize();
@@ -42,6 +44,11 @@ int main(int argc, char *argv[]){
         ( "n-value",
           hpx::program_options::value<int>()->default_value(10),
           "n value for the Fibonacci function");
+
+    desc_commandline.add_options()
+        ( "debug",
+          hpx::program_options::value<int>()->default_value(0),
+          "provide this flag to gain more information about the execution");
 
     // Init and run HPX runtime environment
     return hpx::init(desc_commandline, argc, argv);

@@ -79,14 +79,11 @@ int hpx_main(hpx::program_options::variables_map& vm) {
 
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end-start);
-    hpx::cout << "Execution time: " << duration.count() << "\n" << hpx::flush;
 
-    if (debug) {
-        for(int l = 0; l < VECTOR_SIZE; l++){
-            hpx::cout << vector[l] << ", ";
-	}
-	hpx::cout << "\n" << hpx::flush;
-    }
+    if (debug) hpx::cout << "Execution time: " << duration.count() << "\n" << hpx::flush;
+    else hpx::cout << duration.count() << "\n" << hpx::flush;
+
+
     return hpx::finalize();
 }
 
@@ -99,7 +96,7 @@ int main(int argc, char *argv[]) {
     desc_commandline.add_options()
         ( "debug",
           hpx::program_options::value<int>()->default_value(0),
-          "If set, use degug mode");
+          "If set to 1, use degug mode");
 
     // Init and run HPX runtime environment
     return hpx::init(desc_commandline, argc, argv);

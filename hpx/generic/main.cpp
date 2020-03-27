@@ -37,7 +37,8 @@ void sum_vector(int vectorIndex, int depth = 1){
 int hpx_main(hpx::program_options::variables_map& vm) {
 
     int turns = vm["turns"].as<int>();
-    int taskSize =vm ["taskSize"].as<int>();
+    int taskSize = vm ["taskSize"].as<int>();
+    int debug = vm["debug"].as<int>();
 
     // seed the random number generator with a constant to create a deterministic generation
     srand(42);
@@ -74,10 +75,12 @@ int hpx_main(hpx::program_options::variables_map& vm) {
 
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-    std::cout << "Execution time: " << duration.count() << "\n" << hpx::flush;
 
-    // Output the solution for debugging
-    hpx::cout << vectors[0][0] << "\n" << hpx::flush;
+    if (debug) hpx::cout << "Execution time: " << duration.count() << "\n" << hpx::flush;
+    else hpx::cout << duration.count() << "\n" << hpx::flush;
+
+    // output result for debugging
+    if (debug) hpx::cout << result << "\n" << hpx::flush;
 
     return hpx::finalize();
 }
@@ -97,6 +100,11 @@ int main(int argc, char *argv[]){
         ( "taskSize",
           hpx::program_options::value<int>()->default_value(10),
           "specifies how many vector elements are used by a task");
+
+    desc_commandline.add_options()
+        ( "debug",
+          hpx::program_options::value<int>()->default_value(0),
+          "provide this flag to gain more information about the execution");
 
     // Init and run HPX runtime environment
     return hpx::init(desc_commandline, argc, argv);
