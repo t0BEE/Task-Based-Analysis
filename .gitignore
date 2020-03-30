@@ -18,3 +18,7 @@ build_output/*
 
 # ignore stackdumps
 *stackdump*
+
+# ignore venv
+*/venv/*
+scripts/Pip*
