@@ -10,7 +10,7 @@ tex/*.gz
 build_output/*
 
 # ignore test outputs
-scripts/output.csv
+*.json
 
 # ignore CLion files
 *.idea*

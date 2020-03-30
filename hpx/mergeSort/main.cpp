@@ -81,7 +81,7 @@ int hpx_main(hpx::program_options::variables_map& vm) {
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end-start);
 
     if (debug) hpx::cout << "Execution time: " << duration.count() << "\n" << hpx::flush;
-    else hpx::cout << duration.count() << "\n" << hpx::flush;
+    else hpx::cout << duration.count() << hpx::flush;
 
 
     return hpx::finalize();
