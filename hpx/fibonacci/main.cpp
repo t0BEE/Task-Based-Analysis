@@ -11,7 +11,7 @@ long long fibonacci(long long input) {
 	return n1.get() + n2.get();
 }
 
-int hpx_main(hpx::program_options::variables_map& vm) {
+int hpx_main(boost::program_options::variables_map& vm) {
     // extract command line arguments
     int fibNumber = vm["n-value"].as<int>();
     int debug = vm["debug"].as<int>();
@@ -37,17 +37,17 @@ int hpx_main(hpx::program_options::variables_map& vm) {
 
 int main(int argc, char *argv[]){
     // Configure application-specific options
-    hpx::program_options::options_description
+    boost::program_options::options_description
        desc_commandline("Usage: " HPX_APPLICATION_STRING " [options]");
 
     desc_commandline.add_options()
         ( "n-value",
-          hpx::program_options::value<int>()->default_value(10),
+          boost::program_options::value<int>()->default_value(10),
           "n value for the Fibonacci function");
 
     desc_commandline.add_options()
         ( "debug",
-          hpx::program_options::value<int>()->default_value(0),
+          boost::program_options::value<int>()->default_value(0),
           "provide this flag to gain more information about the execution");
 
     // Init and run HPX runtime environment

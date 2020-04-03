@@ -34,7 +34,7 @@ void sum_vector(int vectorIndex, int depth = 1){
 }
 
 
-int hpx_main(hpx::program_options::variables_map& vm) {
+int hpx_main(boost::program_options::variables_map& vm) {
 
     int turns = vm["turns"].as<int>();
     int taskSize = vm ["taskSize"].as<int>();
@@ -88,22 +88,22 @@ int hpx_main(hpx::program_options::variables_map& vm) {
 int main(int argc, char *argv[]){
     // parse parameters
     // Configure application-specific options
-    hpx::program_options::options_description
+    boost::program_options::options_description
        desc_commandline("Usage: " HPX_APPLICATION_STRING " [options]");
 
     desc_commandline.add_options()
         ( "turns",
-          hpx::program_options::value<int>()->default_value(10),
+          boost::program_options::value<int>()->default_value(10),
           "specifies how often vectors are copied");
 
     desc_commandline.add_options()
         ( "taskSize",
-          hpx::program_options::value<int>()->default_value(10),
+          boost::program_options::value<int>()->default_value(10),
           "specifies how many vector elements are used by a task");
 
     desc_commandline.add_options()
         ( "debug",
-          hpx::program_options::value<int>()->default_value(0),
+          boost::program_options::value<int>()->default_value(0),
           "provide this flag to gain more information about the execution");
 
     // Init and run HPX runtime environment
