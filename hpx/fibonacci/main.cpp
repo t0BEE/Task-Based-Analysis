@@ -7,8 +7,8 @@ long long fibonacci(long long input) {
 	if (input < 2) return input;
 
 	hpx::future<long long> n1 = hpx::async(fibonacci, input - 1);
-	hpx::future<long long> n2 = hpx::async(fibonacci, input - 2);
-	return n1.get() + n2.get();
+	long long n2 = fibonacci(input - 2);
+	return n1.get() + n2;
 }
 
 int hpx_main(boost::program_options::variables_map& vm) {

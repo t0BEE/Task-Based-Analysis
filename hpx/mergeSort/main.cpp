@@ -55,9 +55,8 @@ void mergeSort(int left, int right) {
     if(!(left < right)) return;
     int middle = (left + right) / 2;
     hpx::future<void> m1 = hpx::async(mergeSort, left, middle);
-    hpx::future<void> m2 = hpx::async(mergeSort, middle + 1, right);
+    mergeSort(middle + 1, right);
     m1.get();
-    m2.get();
     merge(left, middle, right);
 }
 
