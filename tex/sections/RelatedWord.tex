@@ -20,13 +20,53 @@
   - task construct allows developers to dynamically create asynchronous units of work
 
 
-\section{HPX}
+\subsection{HPX}
 - HPX
-  - Veeeery short intro
-  - Tasks in HPX
-    \cite{Kaiser.2009}
+  \cite{Kaiser.2014}
+  - general purpose C++ runtime system for parallel and distributed applications of any scale
+  - innovative mixture of global system-wide address space, fine grain parallelism, and lightweight synchronization
+    + implicit message driven computation
+    + semantic equivalent of local and remote execution
+    + explicit support for accelerators such as GPGPUs
+  - aims to resolve scalability / resiliency / power efficiency / runtime adaptive resource management in the evolve from Peta- to Exascale systems
+  
+\cite{Kaiser.2009}
+  - introduce a new model of parallel execution --> Parallex
+    - efficiency / scalability
     
-\section{Benchmark Algorithm}
+  - HPX = run time system supporting the ParalleX model
+  
+--> folgende sind große Vergleiche zu MPI ---
+    - dynamically schedule multiple threads moving the work to the data
+     -> instead of statically designated processes synchroized by message passing
+    - use local synchronization and global asynchronicity (MPI uses messages as synchronization)
+    - Global barriers are essentially eliminated and instead replaced by
+lightweight Local Control Objects (LCOs) -> futures / mutexes
+    - key to efficiency and latency hiding is the message-driven work-queue
+	  -> apply user tasks to physical processing resources
+	- uses active global address space (AGAS)
+	  - allows to move virtual objects in physical space without changing virtual names
+	  ---
+	- conventiionally 1 process = 1 processor
+	  -> ParalleX, use \textit{parallel processes}: map a process to multiple cores, allow many concurrent threads and child processes
+	- use a thread manager implemented as FCFS scheduler 
+	  - OS threads work from a single queue of tasks 
+	  --> sufficient for small amount of concurrent OS threads
+	  --> there is work on a more scalable , work stealing scheduler using one queue per OS thread (core)
+	  
+
+--> Tasks in HPX
+
+\subsection{hpxMP}
+\cite{TianyiZhang.2019}
+- introduction of hpxMP
+
+\cite{Zhang.2192020}
+- OpenMP 5 tasks in hpxMP
+
+
+    
+\subsection{Benchmark Algorithm}
 - Barcelona OpenMP Task Suite (BOTS)
 	- aim of the suite is to provide a collection of benchmarks that would allow vendors to test the impact of different implementation decisions in a multicore architecture
 	- 9 benchmarks
@@ -41,9 +81,7 @@
 		> Strassen: hierarchical decomposition of a matrix for multiplication of large dense matrices
 	--> different version of each benchmark and some with cut-off version to avoid high amount of tasks
 	
+
+	- Fibonacci --> high amount of tasks, having the scheduling as the main part of the workload
+	- MergeSort --> easy to implement, good use case and high number of tasks
 	
-  - short overview + concluding algorithms
-  - why to choose on algorithm
-    --> more complexity
-    --> task size / dependencies
-    
