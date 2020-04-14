@@ -1,6 +1,7 @@
 #include <chrono>
 #include <iostream>
 #include <cstring>
+#include <omp.h>
 
 
 long long fibonacci(long long input) {

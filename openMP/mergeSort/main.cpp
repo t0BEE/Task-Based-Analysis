@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <cstring>
+#include <omp.h>
 
 
 int vector[VECTOR_SIZE];

@@ -3,6 +3,7 @@
 #include <cmath>
 #include <chrono>
 #include <cstring>
+#include <omp.h>
 
 
 float vectors[2][VECTOR_SIZE];
