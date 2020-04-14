@@ -27,3 +27,6 @@ To use the installed HPX CMake variables have to be set in the CMakeList.txt fil
 - `HPX_DIR`: `${HPX_INSTALL_DIR}/lib/cmake/HPX`
 - `HPX_PREFIX_PATH`: `${HPX_INSTALL_DIR}`
 Further information can be found [here](https://stellar-group.github.io/hpx/docs/sphinx/latest/html/manual/creating_hpx_projects.html#using-hpx-with-cmake-based-projects).
+
+
+Pipenv is created according to [this site](https://docs.python-guide.org/dev/virtualenvs/).
