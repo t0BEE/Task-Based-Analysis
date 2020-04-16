@@ -16,9 +16,9 @@ The latter two are part of the [Barcelona OpenMP Benchmark Suite](https://github
 HPX requires some libraries, [Boost](https://www.boost.org/), [jemalloc](https://github.com/STEllAR-GROUP/hpx/issues/2524#issuecomment-282954083) and [HWLOC](https://www.open-mpi.org/projects/hwloc/).
 
 After installing these libraries I run:
-- Create a folder to install HPX, `HPX_LOCATION`, in and a subfolder as build directory
+- Create a folder to install HPX (`HPX_LOCATION`) in and additionally create subfolder as build directory
 - Switch into the subfolder and execute the following commands
-- `cmake -DBOOST_ROOT=$BOOST_ROOT -DHWLOC_ROOT=$HWLOC_ROOT -DHPX_WITH_MALLOC=JEMALLOC -DJEMALLOC_ROOT=$JEMALLOC_ROOT -DCMAKE_INSTALL_PREFIX=$HPX_LOCATION ~/Downloads/hpx_1.3.0`
+- `cmake -DBOOST_ROOT=$BOOST_ROOT -DHWLOC_ROOT=$HWLOC_ROOT -DHPX_WITH_MALLOC=JEMALLOC -DJEMALLOC_ROOT=$JEMALLOC_ROOT -DHPX_WITH_NETWORKING=OFF -DCMAKE_INSTALL_PREFIX=$HPX_LOCATION ~/Downloads/hpx_1.3.0`
 - `make`
 - `make install`
 
