@@ -24,7 +24,7 @@ HPX requires some libraries, [Boost](https://www.boost.org/), [jemalloc](https:/
 After installing these libraries I run:
 - Create a folder to install HPX, `HPX_LOCATION`, in and a subfolder as build directory
 - Switch into the subfolder and execute the following commands
-- `cmake -DBOOST_ROOT=$BOOST_ROOT -DHWLOC_ROOT=$HWLOC_ROOT -DHPX_WITH_MALLOC=JEMALLOC -DJEMALLOC_ROOT=$JEMALLOC_ROOT -DCMAKE_INSTALL_PREFIX=$HPX_LOCATION ~/Downloads/hpx_1.3.0`
+- `cmake -DBOOST_ROOT=$BOOST_ROOT -DHWLOC_ROOT=$HWLOC_ROOT -DHPX_WITH_MALLOC=JEMALLOC -DJEMALLOC_ROOT=$JEMALLOC_ROOT -DCMAKE_INSTALL_PREFIX=$HPX_LOCATION [path/to/hpx]`
 - `make`
 - `make install`
 
