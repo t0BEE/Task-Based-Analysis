@@ -61,7 +61,7 @@ void mergeSort(int left, int right) {
     merge(left, middle, right);
 }
 
-int hpx_main(boost::program_options::variables_map& vm) {
+int hpx_main(hpx::program_options::variables_map& vm) {
     // if parameter is 0, use debug mode
     int debug = vm["debug"].as<int>();
     
@@ -90,12 +90,12 @@ int hpx_main(boost::program_options::variables_map& vm) {
 
 int main(int argc, char *argv[]) {
     // Configure application-specific options
-    boost::program_options::options_description
+    hpx::program_options::options_description
        desc_commandline("Usage: " HPX_APPLICATION_STRING " [options]");
 
     desc_commandline.add_options()
         ( "debug",
-          boost::program_options::value<int>()->default_value(0),
+          hpx::program_options::value<int>()->default_value(0),
           "If set to 1, use degug mode");
 
     // Init and run HPX runtime environment
