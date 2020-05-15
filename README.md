@@ -50,3 +50,9 @@ Environment deactivation can be performed by `spack env deactivate`.
 ### Pipenv
 Pipenv is created according to [this site](https://docs.python-guide.org/dev/virtualenvs/).
 
+Varify that you have a Python 3 version and pip for python by `python3 --version` and `pip3 --version`.
+If it is not the case install both via your package manager.
+Install pipenv by executing `pip3 install --user pipenv`.
+Then, change into the script directory and execute `pipenv install`.
+It installs all necessary libraries which are listed in the Pipfile.
+

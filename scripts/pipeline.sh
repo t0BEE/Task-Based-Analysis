@@ -3,7 +3,7 @@
 rm -r metrics
 mkdir metrics
 
-./build.sh
+./.build.sh
 ./output.sh 20 20 22 20
 
 for files in *.json
