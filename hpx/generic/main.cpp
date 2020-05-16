@@ -10,7 +10,7 @@
 #include <hpx/parallel/execution_policy.hpp>
 
 #ifndef VECTOR_SIZE
-#define VECTOR_SIZE 10000
+#define VECTOR_SIZE 100000
 #endif
 
 float vectors[2][VECTOR_SIZE];
