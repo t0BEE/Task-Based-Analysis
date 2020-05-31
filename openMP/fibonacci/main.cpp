@@ -8,20 +8,11 @@ long long fibonacci(long long input) {
     if (input < 2 ) return input;
 
     long long x, y;
-    #pragma omp parallel
-    {
-        #pragma omp single
-	{
-            #pragma omp task
-            {
-                x = fibonacci(input - 1);
-            }
-            #pragma omp task
-            {
-                y = fibonacci(input - 2);
-            }
-        }
-    }
+    #pragma omp task shared(x) firstprivate(input)
+    x = fibonacci(input - 1);
+    #pragma omp task shared(y) firstprivate(input)
+    y = fibonacci(input - 2);
+    #pragma omp taskwait
     return x + y;
 }
 
