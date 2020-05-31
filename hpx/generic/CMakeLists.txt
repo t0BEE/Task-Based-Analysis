@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.3.2)
 
 project(hpxGeneric CXX)
-add_definitions(-DVECTOR_SIZE=10000)
+add_definitions(-DVECTOR_SIZE=100000)
 
 set(CMAKE_CXX_COMPILER g++)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lm")

@@ -12,6 +12,9 @@ build_output/*
 # ignore test outputs
 *.json
 
+# ignore images
+*.png
+ 
 # ignore CLion files
 *.idea*
 *cmake-build-debug*
@@ -21,4 +24,3 @@ build_output/*
 
 # ignore venv
 */venv/*
-scripts/Pip*
