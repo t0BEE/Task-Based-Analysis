@@ -24,3 +24,7 @@ build_output/*
 
 # ignore venv
 */venv/*
+
+# ignore helping files
+spack_init.sh
+

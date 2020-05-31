@@ -10,7 +10,7 @@
 #include <hpx/parallel/execution_policy.hpp>
 
 #ifndef VECTOR_SIZE
-#define VECTOR_SIZE 100000
+#define VECTOR_SIZE 10000
 #endif
 
 float vectors[2][VECTOR_SIZE];
@@ -80,7 +80,7 @@ int hpx_main(hpx::program_options::variables_map& vm) {
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 
-    if (debug) hpx::cout << "Execution time: " << duration.count() << "\n" << hpx::flush;
+    if (debug) hpx::cout << "Execution time: " << duration.count() << "ms\n" << hpx::flush;
     else hpx::cout << duration.count() << hpx::flush;
 
     // output result for debugging
