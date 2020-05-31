@@ -5,11 +5,28 @@
   - can vary the task size
   
 - from BOTS
-	- fibonacci
-		- very small tasks --> the scheduling overhead will make the difference
-	- mergeSort  
-		- medium task size
+	as already mentioned in the section before
+	-> Fibonacci
+	-> MergeSort
 		
 		
 \subsection{Optimization}
-	- decide if to do here or in Results
+	
+	\cite{LaGrone.2011}
+	--> task has an if clause evaluated to false will directly continue with the generated task --> depth-first
+	--> untied tasks (balancing) vs tied (data locality)
+	--> (maybe) use taskwait for less scheduling overhead --> depth-first
+	--> cutoff, regulating task creation, if condition is not met execute tasks immediately and do not place them on the queue
+		--> create new OMP_TASK_CREATE_COND environment variable
+		
+    --> does the shared variable directive decrease the work for task creation???
+    
+    --> a nowait directive at the omp single
+    
+    \cite{MKlemm.2018}
+ --> directives to optimize
+ 	-->taskyield - suspend the current task in favor of execution of a different task
+ 	--> if - in case it is false the task is executed immediately
+ 	--> mergeable - A task for which the data environment, is the same as that of its generating task region
+ 	--> final - force all child tasks to become final and included
+ 		--> if true --> child tasks become included --> means that the tasks are also executed by the parent task
