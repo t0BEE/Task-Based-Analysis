@@ -5,9 +5,13 @@
 #include <hpx/hpx_init.hpp>
 #include <hpx/include/iostreams.hpp>
 #include <hpx/include/async.hpp>
+#include <hpx/program_options.hpp>
 #include <hpx/parallel/algorithms/for_loop.hpp>
 #include <hpx/parallel/execution_policy.hpp>
 
+#ifndef VECTOR_SIZE
+#define VECTOR_SIZE 100000
+#endif
 
 float vectors[2][VECTOR_SIZE];
 
@@ -77,7 +81,7 @@ int hpx_main(hpx::program_options::variables_map& vm) {
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 
     if (debug) hpx::cout << "Execution time: " << duration.count() << "\n" << hpx::flush;
-    else hpx::cout << duration.count() << "\n" << hpx::flush;
+    else hpx::cout << duration.count() << hpx::flush;
 
     // output result for debugging
     if (debug) hpx::cout << vectors[0][0] << "\n" << hpx::flush;

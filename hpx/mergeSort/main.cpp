@@ -6,6 +6,10 @@
 #include <hpx/include/iostreams.hpp>
 #include <hpx/include/async.hpp>
 
+#ifndef VECTOR_SIZE
+#define VECTOR_SIZE 10000
+#endif
+
 int vector[VECTOR_SIZE];
 
 void merge(int left, int middle, int right) {
@@ -81,7 +85,7 @@ int hpx_main(hpx::program_options::variables_map& vm) {
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end-start);
 
     if (debug) hpx::cout << "Execution time: " << duration.count() << "\n" << hpx::flush;
-    else hpx::cout << duration.count() << "\n" << hpx::flush;
+    else hpx::cout << duration.count() << hpx::flush;
 
 
     return hpx::finalize();

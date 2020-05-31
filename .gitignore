@@ -10,11 +10,17 @@ tex/*.gz
 build_output/*
 
 # ignore test outputs
-scripts/output.csv
+*.json
 
+# ignore images
+*.png
+ 
 # ignore CLion files
 *.idea*
 *cmake-build-debug*
 
 # ignore stackdumps
 *stackdump*
+
+# ignore venv
+*/venv/*

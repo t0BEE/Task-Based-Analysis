@@ -1,6 +1,7 @@
 #include <chrono>
 #include <iostream>
 #include <cstring>
+#include <omp.h>
 
 
 long long fibonacci(long long input) {
@@ -48,7 +49,7 @@ int main(int argc, char *argv[]) {
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
     if (debug) std::cout << "Execution time: " << duration.count() << " ms"<< std::endl;
-    else std::cout << duration.count() << std::endl;
+    else std::cout << duration.count();
 
     // output result for debugging
     if (debug) std::cout << result << std::endl;

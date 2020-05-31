@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <cstring>
+#include <omp.h>
 
 
 int vector[VECTOR_SIZE];
@@ -100,7 +101,7 @@ int main(int argc, char *argv[]) {
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end-start);
     if (debugB) std::cout << "Execution time: " << duration.count() << " ms"<< std::endl;
-    else std::cout << duration.count() << std::endl;
+    else std::cout << duration.count();
 
 
     if (debug) {
