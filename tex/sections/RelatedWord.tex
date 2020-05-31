@@ -1,0 +1,120 @@
+\section{Related Work}
+
+\subsection{The Task Feature}
+ 2 - important for applications exhibiting irregular parallelism (recursion, pointer-chasing)
+ 2 - downside: increased complexity --> poor implementations can lead to to overhead
+ 2 - performance of an application heavily relies on the scheduler
+ 2 - ideal: maximize concurrency, load balancing and locality
+ 	-> efficiency depends on data structures for storing unfinished tasks, manage task switching, regulation of task creation, task synchronization and task memory footprint
+ 2 - schedulers mostly have queues for storing tasks that are ready for execution
+ 	--> several ways of queue organization (there is a source to cite)
+ 		- 1 queue n threads / n threads n queues / hierarchical tree structure ...
+ 2 - schedulers can be classified in depth- and breadth-first 
+ 	depth --> create child task and execute it --> less number of tasks leading to less concurrency opportunities, however better data reuse
+ 	
+
+\subsection{OpenMP}
+
+explain OpenMP ? -- basic knowledge ?
+
+1\cite{Ayguade.2009}
+2\cite{LaGrone.2011} --> some further information and alternatives can be found here
+3\cite{MKlemm.2018}
+4\cite{Qawasmeh.2014}
+5\cite{Duran.2008}
+6\cite{Furlinger.2009}
+
+example implementation here - show the directives
+
+  1,2- openMP shifts to tasks in version 3.0
+  1,2- introduces task directive, to specify explicit tasks
+  	1,2- explicit -> defined by programmer
+    2,3- implicit tasks are created in parallel regions 
+    --> the program does not need to specify or know about them
+  1,2- explicit tasks can be executed by any thread in the current team
+  1- are defined by the task construct and enclose a certain code area defined by the programmer --> task region
+  1- like in normal parallel regions variable scopes can be defined by shared, private or firstprivate
+  1,2- by default, a thread is tied to a task as it begins to execute the task
+    1,2- this means that the task is only executed by this thread, however the thread can still execute other tasks in case the task reaches a task scheduling point and has to suspend its work
+    1,2- this restriction can be avoided by defining the tasks untied
+    
+  5- when a thread encounters a task directive, the data environment is captured
+  		--> the environment and the code block constitute the generated task
+
+
+  4- OpenMP runtime becomes responsible for the scheduling of tasks
+  4- task construct allows developers to dynamically create asynchronous units of work
+  2- explicit scheduling can be achieved by 
+      - \texttt{taskwait}, suspend encountering task region and wait for all child tasks to complete
+      - \texttt{barrier}, wait till all reach the barrier
+
+  6- tasks result in more dynamic and unpredictable execution characteristics
+  	--> does the thread switch to the child task or not ? --> use true false at the creation to minimize that uncertainty
+
+
+\subsection{HPX}
+\subsubsection{HPX}
+  \cite{Kaiser.2014}
+  - general purpose C++ runtime system for parallel and distributed applications of any scale
+  - innovative mixture of global system-wide address space, fine grain parallelism, and lightweight synchronization
+    + implicit message driven computation
+    + semantic equivalent of local and remote execution
+    + explicit support for accelerators such as GPGPUs
+  - aims to resolve scalability / resiliency / power efficiency / runtime adaptive resource management in the evolve from Peta- to Exascale systems
+  
+\cite{Kaiser.2009}
+  - introduce a new model of parallel execution --> Parallex
+    - efficiency / scalability
+    
+  - HPX = run time system supporting the ParalleX model
+  
+--> folgende sind große Vergleiche zu MPI ---
+    - dynamically schedule multiple threads moving the work to the data
+     -> instead of statically designated processes synchroized by message passing
+    - use local synchronization and global asynchronicity (MPI uses messages as synchronization)
+    - Global barriers are essentially eliminated and instead replaced by
+lightweight Local Control Objects (LCOs) -> futures / mutexes
+    - key to efficiency and latency hiding is the message-driven work-queue
+	  -> apply user tasks to physical processing resources
+	- uses active global address space (AGAS)
+	  - allows to move virtual objects in physical space without changing virtual names
+	  ---
+	- conventiionally 1 process = 1 processor
+	  -> ParalleX, use \textit{parallel processes}: map a process to multiple cores, allow many concurrent threads and child processes
+	- use a thread manager implemented as FCFS scheduler 
+	  - OS threads work from a single queue of tasks 
+	  --> sufficient for small amount of concurrent OS threads
+	  --> there is work on a more scalable , work stealing scheduler using one queue per OS thread (core)
+	  
+
+\subsubsection{Tasks in HPX}
+
+
+\subsection{hpxMP}
+\cite{TianyiZhang.2019}
+- introduction of hpxMP
+
+\cite{Zhang.2192020}
+- OpenMP 5 tasks in hpxMP
+
+
+    
+\subsection{Benchmark Algorithm}
+- Barcelona OpenMP Task Suite (BOTS)
+	- aim of the suite is to provide a collection of benchmarks that would allow vendors to test the impact of different implementation decisions in a multicore architecture
+	- 9 benchmarks
+		> Alignment: align protein sequences against every other sequence using a special algorithm
+		> FFT: Fast Fourier Transformation
+		> Fibonacci: calculation of the nth number in the Fibonacci sequence
+		> Floorplan: compute the optimal floorplan distribution of a number of cells
+		> Health: simulate the Columbian Health Care System
+		> N Queens: the n-queen problem, to find placements of queens on a chessboard under special conditions
+		> Sort: parallel execution of merge sort
+		> SparseLU: LU matrix factorization over sparse matrices
+		> Strassen: hierarchical decomposition of a matrix for multiplication of large dense matrices
+	--> different version of each benchmark and some with cut-off version to avoid high amount of tasks
+	
+
+	- Fibonacci --> high amount of tasks, having the scheduling as the main part of the workload
+	- MergeSort --> easy to implement, good use case and high number of tasks
+	
