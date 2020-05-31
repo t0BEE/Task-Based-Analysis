@@ -62,3 +62,6 @@ Install pipenv by executing `pip3 install --user pipenv`.
 Then, change into the script directory and execute `pipenv install`.
 It installs all necessary libraries which are listed in the Pipfile.
 
+## Run the Benchmarks
+To run the benchmark using spack change into the `scripts` directory and run the `spack_pipeline.sh`.
+The tables, plots and results can be found in the script directory.

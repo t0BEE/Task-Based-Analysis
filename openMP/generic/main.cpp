@@ -11,10 +11,7 @@ float vectors[2][VECTOR_SIZE];
 void sum_vector(int vectorIndex, int depth = 1){
     int stepSize = (int) pow( 2, depth);
     if (stepSize > VECTOR_SIZE) return;
-    #pragma omp parallel
-    {
-        #pragma omp single
-        #pragma omp taskloop
+        #pragma omp taskloop untied
         for (int i = 0; i < VECTOR_SIZE; i += stepSize) {
             // the amount of tasks it not always dividable by 2,
             // the result of the last task has to be added to the previous result
@@ -27,7 +24,6 @@ void sum_vector(int vectorIndex, int depth = 1){
                 vectors[vectorIndex][i] += vectors[vectorIndex][i + (stepSize / 2)];
             }
         }
-    }
     sum_vector(vectorIndex, depth + 1);
 }
 
