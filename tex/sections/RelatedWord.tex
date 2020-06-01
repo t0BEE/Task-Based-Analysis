@@ -24,7 +24,7 @@ explain OpenMP ? -- basic knowledge ?
 5\cite{Duran.2008}
 6\cite{Furlinger.2009}
 
-example implementation here - show the directives
+ example implementation here - show the directives
 
   1,2- openMP shifts to tasks in version 3.0
   1,2- introduces task directive, to specify explicit tasks
@@ -88,6 +88,17 @@ lightweight Local Control Objects (LCOs) -> futures / mutexes
 	  
 
 \subsubsection{Tasks in HPX}
+\cite{TheSTEARGroup.2020}
+  - HPX allows the same tasking method as the C++ standard library --> using async and futures
+    - lightweight threads are used which have faster context switches and smaller stacks
+    - async: launches a task asynchronously
+    - future<T>: represents a value of type T which will be available in the future
+    - continuation - then: take a function to run after the task is done
+
+  - future: acts as a placeholder for a result not known yet
+    --> the computation for that value is not yet completed
+    --> using the get() method blocks the calling thread and it passively waits until the value of the future is available
+    - when a future is created it spawns a new HPX-Thread and places it on the thread queue
 
 
 \subsection{hpxMP}
