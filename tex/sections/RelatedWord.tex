@@ -1,39 +1,56 @@
 \section{Related Work}
 
-\subsection{The Task Feature}
- 2 - important for applications exhibiting irregular parallelism (recursion, pointer-chasing)
- 2 - downside: increased complexity --> poor implementations can lead to to overhead
- 2 - performance of an application heavily relies on the scheduler
- 2 - ideal: maximize concurrency, load balancing and locality
- 	-> efficiency depends on data structures for storing unfinished tasks, manage task switching, regulation of task creation, task synchronization and task memory footprint
- 2 - schedulers mostly have queues for storing tasks that are ready for execution
- 	--> several ways of queue organization (there is a source to cite)
- 		- 1 queue n threads / n threads n queues / hierarchical tree structure ...
- 2 - schedulers can be classified in depth- and breadth-first 
- 	depth --> create child task and execute it --> less number of tasks leading to less concurrency opportunities, however better data reuse
+\subsection{Tasking}
+  Having the task construct as mean to parallelize a program allows to utilize irregular parallelism.
+  Irregular parallelism is widely used these days and includes parallel execution of while loops or recursive function calls for instance.
+  Tasking explicitly specifies independent units of work which can be executed in parallel.
+  This enables a more dynamic way of parallelization.
+  However, a disadvantage of this kind of parallelism is that it increases the complexity of a program and poor implementations can lead to an increased overhead.~\cite{Ayguade.2009}~\cite{LaGrone.2011}
+  
+  
+  The used runtime system plays a crucial role when it comes to the application's performance using tasking. 
+  For example, as the tasking construct creates several tasks which will be executed by threads, the performance of an application relies on the thread scheduler of the runtime system.
+  The authors of \cite{LaGrone.2011} discuss different aspects of a runtime system using the task construct.
+  The efficiency of such depends on the data structures which store unfinished tasks, manage task switching and regulate task creation.
+  Additionally, the data structures to organize task synchronization and manage the memory footprint of a task are also important.
+  The ideal way of work of the thread scheduler, for example, is to maximize concurrency, load balancing and data locality.
+  This can be achieved by different ways to manage queue storing all tasks ready to be executed.
+  Furthermore, the scheduler can be \textit{depth-first} or \textit{breadth-first}.
+  Breadth-first means that child tasks created by the parent task and put into the queue to be scheduled at any time.
+  Whereas breadth-first schedulers switch to child tasks directly after their creation and execute them.
+  This leads to a smaller number of tasks in the queue and less concurrency opportunities.
+  However, the data reuse increases.
+ 
  	
+  The following subsections \ref{subsec:OpenMP} and \ref{subsec:HPX} introduce two runtime systems utilizing tasks.
+  These will be compared in this work.
+
 
 \subsection{OpenMP}
+\label{subsec:OpenMP}
 
-explain OpenMP ? -- basic knowledge ?
+%1\cite{Ayguade.2009}
+%2\cite{LaGrone.2011} --> some further information and alternatives can be found here
+%3\cite{MKlemm.2018}
+%4\cite{Qawasmeh.2014}
+%5\cite{Duran.2008}
+%6\cite{Furlinger.2009}
 
-1\cite{Ayguade.2009}
-2\cite{LaGrone.2011} --> some further information and alternatives can be found here
-3\cite{MKlemm.2018}
-4\cite{Qawasmeh.2014}
-5\cite{Duran.2008}
-6\cite{Furlinger.2009}
+% example implementation here - show the directives
 
- example implementation here - show the directives
+  OpenMP includes the tasking model since version 3.0.
+  Various directives for that purpose are being included since to specify and manage  tasks.
+  However, OpenMP still differs between explicit and implicit tasks.
+  Implicit tasks are created by parallel regions as side effect.
+  The programmer does not need to specify or know about them.
+  Explicit tasks on the other hand are defined by the programmer using the task directives.
+  The simplest directive to define an explicit task is \texttt{omp task} and the enclosed code area is the task region.
+  These are executed by any task in the current team whenever they are ready.~\cite{Ayguade.2009}~\cite{LaGrone.2011} 
 
-  1,2- openMP shifts to tasks in version 3.0
-  1,2- introduces task directive, to specify explicit tasks
-  	1,2- explicit -> defined by programmer
-    2,3- implicit tasks are created in parallel regions 
-    --> the program does not need to specify or know about them
-  1,2- explicit tasks can be executed by any thread in the current team
-  1- are defined by the task construct and enclose a certain code area defined by the programmer --> task region
-  1- like in normal parallel regions variable scopes can be defined by shared, private or firstprivate
+  Like in parallel regions variable scopes can be defined by \texttt{shared}, \texttt{private} or \texttt{firstprivate} to enable shared variables between these tasks.
+  
+
+
   1,2- by default, a thread is tied to a task as it begins to execute the task
     1,2- this means that the task is only executed by this thread, however the thread can still execute other tasks in case the task reaches a task scheduling point and has to suspend its work
     1,2- this restriction can be avoided by defining the tasks untied
@@ -53,6 +70,7 @@ explain OpenMP ? -- basic knowledge ?
 
 
 \subsection{HPX}
+\label{subsec:HPX}
 \subsubsection{HPX}
   \cite{Kaiser.2014}
   - general purpose C++ runtime system for parallel and distributed applications of any scale
