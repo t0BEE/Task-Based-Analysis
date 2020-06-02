@@ -1,6 +1,7 @@
 \section{Related Work}
 
 \subsection{Tasking}
+\label{subsec:Tasking}
   Having the task construct as mean to parallelize a program allows to utilize irregular parallelism.
   Irregular parallelism is widely used these days and includes parallel execution of while loops or recursive function calls for instance.
   Tasking explicitly specifies independent units of work which can be executed in parallel.
@@ -26,18 +27,8 @@
   These will be compared in this work.
 
 
-\subsection{OpenMP}
+\subsection{Tasks in OpenMP}
 \label{subsec:OpenMP}
-
-%1\cite{Ayguade.2009}
-%2\cite{LaGrone.2011} --> some further information and alternatives can be found here
-%3\cite{MKlemm.2018}
-%4\cite{Qawasmeh.2014}
-%5\cite{Duran.2008}
-%6\cite{Furlinger.2009}
-
-% example implementation here - show the directives
-
   OpenMP includes the tasking model since version 3.0.
   Various directives for that purpose are being included since to specify and manage  tasks.
   However, OpenMP still differs between explicit and implicit tasks.
@@ -45,28 +36,33 @@
   The programmer does not need to specify or know about them.
   Explicit tasks on the other hand are defined by the programmer using the task directives.
   The simplest directive to define an explicit task is \texttt{omp task} and the enclosed code area is the task region.
-  These are executed by any task in the current team whenever they are ready.~\cite{Ayguade.2009}~\cite{LaGrone.2011} 
+  These are executed by any task in the current team whenever they are ready.~\cite{Ayguade.2009}~\cite{LaGrone.2011}
 
-  Like in parallel regions variable scopes can be defined by \texttt{shared}, \texttt{private} or \texttt{firstprivate} to enable shared variables between these tasks.
+%MAYBE example implementation here - show the directives
+
+  When a thread encounters a task directive the current data environment is captured.
+  This environment and the block of code in the task region form the generated task.
+  The variable scopes of a task region can be defined like in parallel regions.
+  By adding the clauses \texttt{shared}, \texttt{private} or \texttt{firstprivate} to the task directive the declared variables are either shared among tasks or not.~\cite{Duran.2008}
   
+  
+  By default a thread is tied to a task as it begins to execute it.
+  This means that this task is only allowed to be executed by one thread.
+  However this thread can still execute other tasks in case it reaches task scheduling points and switches the execution to another task.
+  The suspended task is put into the queue and has to wait until its tied thread is ready to continue its execution.
+  This restriction can be avoided by defining the task \texttt{untied}.
+  By doing so, load balancing is increased, but data locality is decreased.~\cite{Ayguade.2009}~\cite{LaGrone.2011}
 
 
-  1,2- by default, a thread is tied to a task as it begins to execute the task
-    1,2- this means that the task is only executed by this thread, however the thread can still execute other tasks in case the task reaches a task scheduling point and has to suspend its work
-    1,2- this restriction can be avoided by defining the tasks untied
-    
-  5- when a thread encounters a task directive, the data environment is captured
-  		--> the environment and the code block constitute the generated task
-
-
-  4- OpenMP runtime becomes responsible for the scheduling of tasks
-  4- task construct allows developers to dynamically create asynchronous units of work
-  2- explicit scheduling can be achieved by 
-      - \texttt{taskwait}, suspend encountering task region and wait for all child tasks to complete
-      - \texttt{barrier}, wait till all reach the barrier
-
-  6- tasks result in more dynamic and unpredictable execution characteristics
-  	--> does the thread switch to the child task or not ? --> use true false at the creation to minimize that uncertainty
+  Tasking results in a more dynamic execution and might be unpredictable without explicit scheduling.
+  For example the runtime system has either a depth- or breadth-first scheduler.
+  Meaning that it either switches to the child task after creation or finishes the parent task first.
+  The used OpenMP runtime system is responsible to decide.
+  Explicit scheduling can be used to avoid this uncertainty.
+  For instance, adding an \texttt{if}-clause to the task directive and evaluating it to false makes the encountering thread to suspend its current work and execute the child task immediately.
+  Furthermore, explicit task scheduling is possible by using the \texttt{taskwait} and \texttt{barrier} directives.
+  \texttt{taskwait} suspends the encountering task region and forces it to wait for all child tasks to complete.
+  Additionally \texttt{taskgroup} defines a task region which will be executed and at the end the current task has to wait for all its child and their descendants.~\cite{Qawasmeh.2014}~\cite{Furlinger.2009}
 
 
 \subsection{HPX}
