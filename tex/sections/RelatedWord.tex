@@ -135,17 +135,15 @@
 \subsection{Benchmark Algorithm}
 \label{subsec:BOTS}
   The authors of \cite{Duran.2009} introduce a benchmark suite to test the impact of different implementation decisions using OpenMP tasks.
-  The benchmark suite is called \textit{Barcelona OpenMP Task Suite (BOTS)} and includes nine benchmarks:
-  \begin{description}
-    \item[Alignment] is an algorithm aligning protein sequences against every other sequence.
-    \item[Fast Fourier Transformation]
-    \item[Fibonacci] calculates the \(n^{th}\) number of the Fibonacci sequence.
-    \item[Floorplan] computes the optimal floorplan distribution of a number of cells.
-    \item[Health] simulates the Colombian Health Care System
-    \item[N Queens] tries to find placements of \(n\) queens on a chessboard under special condition
-    \item[Sort] is a special kind of parallel merge sort execution
-    \item[SparseLU] calculates a LU matrix factorization over sparse matrices
-    \item[Strassen] hierarchically decomposes a matrix for multiplication of large dense matrices
-  \end{description}
+  The benchmark suite is called \textit{Barcelona OpenMP Task Suite (BOTS)} and includes nine benchmarks:\\
+    \textbf{Alignment} is an algorithm aligning protein sequences against every other sequence.\\
+    \textbf{Fourier Transformation}\\
+    \textbf{Fibonacci} calculates the \(n^{th}\) number of the Fibonacci sequence.\\
+    \textbf{Floorplan} computes the optimal floorplan distribution of a number of cells.\\
+    \textbf{Health} simulates the Colombian Health Care System.\\
+    \textbf{N Queens} tries to find placements of \(n\) queens on a chessboard under special condition.\\
+    \textbf{Sort} is a special kind of parallel merge sort execution.\\
+    \textbf{SparseLU} calculates a LU matrix factorization over sparse matrices.\\
+    \textbf{Strassen} hierarchically decomposes a matrix for multiplication of large dense matrices.\\
   The suite offers different versions of each benchmark, e.g. a version of Fibonacci using a cut-off to avoid an high amount of tasks.
  
