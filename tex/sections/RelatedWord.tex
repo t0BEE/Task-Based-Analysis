@@ -68,78 +68,84 @@
 \subsection{HPX}
 \label{subsec:HPX}
 \subsubsection{HPX}
-  \cite{Kaiser.2014}
-  - general purpose C++ runtime system for parallel and distributed applications of any scale
-  - innovative mixture of global system-wide address space, fine grain parallelism, and lightweight synchronization
-    + implicit message driven computation
-    + semantic equivalent of local and remote execution
-    + explicit support for accelerators such as GPGPUs
-  - aims to resolve scalability / resiliency / power efficiency / runtime adaptive resource management in the evolve from Peta- to Exascale systems
+  %1\cite{Kaiser.2014}
+  %2\cite{Kaiser.2009}	  
   
-\cite{Kaiser.2009}
-  - introduce a new model of parallel execution --> Parallex
-    - efficiency / scalability
+  HPX aims to resolve problems in scalabilitiy, power efficiency, resource management and even further ones which may raise and increase by moving from Peta- to Exascale systems.
+  It focuses on parallel and distributed development independent of the system's scale.
+  This is done by providing a general purpose C++ runtime system with an innovative design.
+  It is described as a mixture of lightweight synchronization, global system-wide address space and fine grain parallelism.
+  Message driven computation can be achieved with a small amount of effort.
+  A remote execution has the same semantics as a local one and can thereby be done implicitly.
+  Furthermore, it offers the programmer explicit support for accelerators such as general purpose graphical processing units.~\cite{Kaiser.2014}
+  
+  
+  A new model of parallel execution is introduced to enable all of this features --- called \textit{Parallex}.
+  HPX is the runtime system supporting this new model.
+  The authors of \cite{Kaiser.2009} compare HPX with MPI extensively in their work.
+  For example, ParalleX maps a process to multiple cores in contrast to the conventional way mapping a process to just one core.
+  Thereby many concurrent threads inside this process are allowed and it is possible  to create child process accessing the cores.
     
-  - HPX = run time system supporting the ParalleX model
-  
---> folgende sind große Vergleiche zu MPI ---
-    - dynamically schedule multiple threads moving the work to the data
-     -> instead of statically designated processes synchroized by message passing
-    - use local synchronization and global asynchronicity (MPI uses messages as synchronization)
-    - Global barriers are essentially eliminated and instead replaced by
-lightweight Local Control Objects (LCOs) -> futures / mutexes
-    - key to efficiency and latency hiding is the message-driven work-queue
-	  -> apply user tasks to physical processing resources
-	- uses active global address space (AGAS)
-	  - allows to move virtual objects in physical space without changing virtual names
-	  ---
-	- conventiionally 1 process = 1 processor
-	  -> ParalleX, use \textit{parallel processes}: map a process to multiple cores, allow many concurrent threads and child processes
-	- use a thread manager implemented as FCFS scheduler 
-	  - OS threads work from a single queue of tasks 
-	  --> sufficient for small amount of concurrent OS threads
-	  --> there is work on a more scalable , work stealing scheduler using one queue per OS thread (core)
-	  
-
+  % Possible to explain ParalleX even further --> architecture e.g. (1 and 2)
+	
+	
 \subsubsection{Tasks in HPX}
-\cite{TheSTEARGroup.2020}
-  - HPX allows the same tasking method as the C++ standard library --> using async and futures
-    - lightweight threads are used which have faster context switches and smaller stacks
-    - async: launches a task asynchronously
-    - future<T>: represents a value of type T which will be available in the future
-    - continuation - then: take a function to run after the task is done
-
-  - future: acts as a placeholder for a result not known yet
-    --> the computation for that value is not yet completed
-    --> using the get() method blocks the calling thread and it passively waits until the value of the future is available
-    - when a future is created it spawns a new HPX-Thread and places it on the thread queue
-
-
+  Various program models increase their efforts on tasking in recent years and increase the possibilities in local parallelism.
+  However, in contrast to the other program models, HPX offers a way for homogeneous execution of local and remote operations.
+  This is achieved by using the task model combined with a so called \textit{Active Global Address Space}.
+  As all nodes of an application share a common address space, objects and tasks can be migrated across nodes.
+  Instead of moving the data to nodes the tasks can be moved to the data, which allows faster communication as the instructions are often smaller in size than the actual data.
+  Furthermore the migration can be done without changing the global address as all nodes share the address space.
+  Additional work is saved due to this fact.~\cite{Kaiser.2014}
+  
+  Another advantage of HPX which also makes it convenient to C++/C programmers is that it uses the same tasking methods as the C++ standard.
+  No new semantic or syntax is used.
+  However, the actual standard is extended to support remote operations.
+  To use tasking in HPX, tasks have to be defined by \texttt{async} and \texttt{future}.
+  \texttt{async} launches a task asynchronously.
+  \texttt{future<T>} represents a value of type \texttt{T} which will be available in the future, when the execution of a task finishes.
+  It acts as a placeholder of a result not known yet and when created spawns a new HPX-Thread which is placed on the thread queue.
+  In case another thread wants to access a future it is blocked and has to wait until the value of the future is available.
+  Using \texttt{get()} is an explicit option for the programmer to let the thread wait for the future.~\cite{Kaiser.2014}~\cite{TheSTEARGroup.2020}
+  
+  
+  The HPX thread scheduling system uses lightweight threads which allow faster context switches and smaller stacks.
+  Task migration is therefore more efficient as less data has to be moved.
+  Furthermore, it is designed to handle millions of tasks efficiently.
+  In \cite{Kaiser.2014} HPX tasks are compared to OpenMP tasks for their GFLOPS on various numbers of cores.
+  However the HTTS benchmark is used which uses no-op tasks and can therefore only compare the thread scheduling performance without actual workload.
+  One reason why HPX performed better in the HTTS benchmark is that it uses constraint based synchronization instead of global barriers, like in OpenMP.
+  For example, OpenMP uses implicit barriers at the end of each loop.
+  In contrast to that HPX allows to execute the code following the loop in case no data dependencies are given.
+  
+  
 \subsection{hpxMP}
-\cite{TianyiZhang.2019}
-- introduction of hpxMP
+  A rather new approach is \textit{hpxMP}.
+  It uses OpenMP 5 tasks together with HPX.  
+  
+  \textit{\textbf{TODO!}}
+%\cite{TianyiZhang.2019}
+%- introduction of hpxMP
 
-\cite{Zhang.2192020}
-- OpenMP 5 tasks in hpxMP
+%\cite{Zhang.2192020}
+%- OpenMP 5 tasks in hpxMP
 
 
     
 \subsection{Benchmark Algorithm}
-- Barcelona OpenMP Task Suite (BOTS)
-	- aim of the suite is to provide a collection of benchmarks that would allow vendors to test the impact of different implementation decisions in a multicore architecture
-	- 9 benchmarks
-		> Alignment: align protein sequences against every other sequence using a special algorithm
-		> FFT: Fast Fourier Transformation
-		> Fibonacci: calculation of the nth number in the Fibonacci sequence
-		> Floorplan: compute the optimal floorplan distribution of a number of cells
-		> Health: simulate the Columbian Health Care System
-		> N Queens: the n-queen problem, to find placements of queens on a chessboard under special conditions
-		> Sort: parallel execution of merge sort
-		> SparseLU: LU matrix factorization over sparse matrices
-		> Strassen: hierarchical decomposition of a matrix for multiplication of large dense matrices
-	--> different version of each benchmark and some with cut-off version to avoid high amount of tasks
-	
-
-	- Fibonacci --> high amount of tasks, having the scheduling as the main part of the workload
-	- MergeSort --> easy to implement, good use case and high number of tasks
-	
+\label{subsec:BOTS}
+  The authors of \cite{Duran.2009} introduce a benchmark suite to test the impact of different implementation decisions using OpenMP tasks.
+  The benchmark suite is called \textit{Barcelona OpenMP Task Suite (BOTS)} and includes nine benchmarks:
+  \begin{description}
+    \item[Alignment] is an algorithm aligning protein sequences against every other sequence.
+    \item[Fast Fourier Transformation]
+    \item[Fibonacci] calculates the \(n^{th}\) number of the Fibonacci sequence.
+    \item[Floorplan] computes the optimal floorplan distribution of a number of cells.
+    \item[Health] simulates the Colombian Health Care System
+    \item[N Queens] tries to find placements of \(n\) queens on a chessboard under special condition
+    \item[Sort] is a special kind of parallel merge sort execution
+    \item[SparseLU] calculates a LU matrix factorization over sparse matrices
+    \item[Strassen] hierarchically decomposes a matrix for multiplication of large dense matrices
+  \end{description}
+  The suite offers different versions of each benchmark, e.g. a version of Fibonacci using a cut-off to avoid an high amount of tasks.
+ 
