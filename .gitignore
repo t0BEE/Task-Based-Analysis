@@ -28,3 +28,5 @@ build_output/*
 # ignore helping files
 spack_init.sh
 
+# ignore metrics
+scripts/metrics/*
