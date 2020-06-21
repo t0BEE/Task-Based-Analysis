@@ -59,3 +59,21 @@ echo -e "--- ${CYAN}Build HPX mergesort algorithm ${NC}---"
 rm ../build_output/CMakeCache.txt
 cmake ../hpx/mergeSort
 cmake --build .
+
+# build sequential generic matrix program
+echo -e "--- ${CYAN}Build sequential generic matrix ${NC}---"
+rm ../build_output/CMakeCache.txt
+cmake ../sequential/genericMatrix
+cmake --build .
+
+# build openMP generic matrix algorithm
+echo -e "--- ${CYAN}Build openMP generic matrixm ${NC}---"
+rm ../build_output/CMakeCache.txt
+cmake ../openMP/genericMatrix
+cmake --build .
+
+# build hpx generic matrix algorithm
+echo -e "--- ${CYAN}Build HPX generic matrix ${NC}---"
+rm ../build_output/CMakeCache.txt
+cmake ../hpx/genericMatrix
+cmake --build .

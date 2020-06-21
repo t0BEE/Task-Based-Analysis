@@ -7,6 +7,7 @@ mkdir metrics
 echo "--- Algorithm Comparison ---"
 ./output.sh 20 20 22 100
 
+
 for files in *.json
 do
   mv $files metrics/
@@ -16,5 +17,7 @@ done
 
 
 echo "--- Generic Comp ---"
-./.genericComp
+./.genericComp.sh
 
+echo "--- Generic Matrix ---"
+./.genericMatrix.sh

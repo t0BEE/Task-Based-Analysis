@@ -56,3 +56,20 @@ cmake --build .
 echo -e "--- ${CYAN}Build HPX mergesort algorithm ${NC}---"
 rm ../build_output/CMakeCache.txt
 g++ -o hpxMergeSort ../hpx/mergeSort/main.cpp -pthread -O3 -l hpx -l hpx_iostreams -l boost_program_options
+
+# build sequential generic Matrix program
+echo -e "--- ${CYAN}Build sequential generic matrix ${NC}---"
+rm ../build_output/CMakeCache.txt
+cmake ../sequential/genericMatrix
+cmake --build .
+
+# build openMP generic Matrix algorithm
+echo -e "--- ${CYAN}Build openMP generic matrix ${NC}---"
+rm ../build_output/CMakeCache.txt
+cmake ../openMP/genericMatrix
+cmake --build .
+
+# build hpx generic Matrix algorithm
+echo -e "--- ${CYAN}Build HPX generic matrix ${NC}---"
+rm ../build_output/CMakeCache.txt
+g++ -o hpxGenMatrix ../hpx/genericMatrix/main.cpp -pthread -O3 -l hpx -l hpx_iostreams -l boost_program_options
