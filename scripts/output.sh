@@ -20,17 +20,20 @@ do
   echo -e "\t\"generic\": {" >> result_$i.json
   echo -n -e "\t\t\"sequential\": " >> result_$i.json
 #  echo -n -e "${CYAN}Sequential Generic: ${NC}"
-  ../build_output/sequentialGeneric $1 $2 | tee -a result_$i.json
+#  ../build_output/sequentialGeneric $1 $2 | tee -a result_$i.json
+  ../build_output/sequentialGeneric $1 $2 >> result_$i.json
   echo "," >> result_$i.json
   echo -n -e "\t\t\"openMP\": " >> result_$i.json
 #  echo " "
 #  echo -n -e "${CYAN}openMP Generic: ${NC}"
-  ../build_output/openMPGeneric $1 $2 | tee -a result_$i.json
+#  ../build_output/openMPGeneric $1 $2 | tee -a result_$i.json
+  ../build_output/openMPGeneric $1 $2 >> result_$i.json
   echo " ," >> result_$i.json
   echo -n -e "\t\t\"hpx\": " >> result_$i.json
 #  echo " "
 #  echo -n -e "${CYAN}HPX Generic: ${NC}"
-  ../build_output/hpxGeneric --turns=$1 --taskSize=$2 | tee -a result_$i.json
+#  ../build_output/hpxGeneric --turns=$1 --taskSize=$2 | tee -a result_$i.json
+  ../build_output/hpxGeneric --turns=$1 --taskSize=$2 >> result_$i.json
 #  echo " "
   echo -e "\n\t}," >> result_$i.json
 
@@ -39,17 +42,20 @@ do
   echo -e "\t\"fibonacci\": {" >> result_$i.json
   echo -n -e "\t\t\"sequential\": " >> result_$i.json
 #  echo -n -e "${CYAN}Sequential Fibonacci: ${NC}"
-  ../build_output/sequentialFibonacci $3 | tee -a result_$i.json
+#  ../build_output/sequentialFibonacci $3 | tee -a result_$i.json
+  ../build_output/sequentialFibonacci $3 >> result_$i.json
   echo " ," >> result_$i.json
   echo -n -e "\t\t\"openMP\": " >> result_$i.json
 #  echo " "
 #  echo -n -e "${CYAN}openMP Fibonacci: ${NC}"
-  ../build_output/openMPFibonacci $3 | tee -a result_$i.json
+#  ../build_output/openMPFibonacci $3 | tee -a result_$i.json
+  ../build_output/openMPFibonacci $3 >> -a result_$i.json
   echo " ," >> result_$i.json
   echo -n -e "\t\t\"hpx\": " >> result_$i.json
 #  echo " "
 #  echo -n -e "${CYAN}HPX Fibonacci: ${NC}"
-  ../build_output/hpxFibonacci --n-value=$3 | tee -a result_$i.json
+#  ../build_output/hpxFibonacci --n-value=$3 | tee -a result_$i.json
+  ../build_output/hpxFibonacci --n-value=$3 >> result_$i.json
 #  echo " "
   echo -e "\n\t}," >> result_$i.json
 
@@ -58,17 +64,20 @@ do
   echo -e "\t\"mergeSort\": {" >> result_$i.json
   echo -n -e "\t\t\"sequential\": " >> result_$i.json
 #  echo -n -e "${CYAN}Sequential MergeSort: ${NC}"
-  ../build_output/sequentialMergeSort | tee -a result_$i.json
+#  ../build_output/sequentialMergeSort | tee -a result_$i.json
+  ../build_output/sequentialMergeSort >> result_$i.json
   echo " ," >> result_$i.json
   echo -n -e "\t\t\"openMP\": " >> result_$i.json
 #  echo " "
 #  echo -n -e "${CYAN}openMP MergeSort: ${NC}"
-  ../build_output/openMPMergeSort | tee -a result_$i.json
+#  ../build_output/openMPMergeSort | tee -a result_$i.json
+  ../build_output/openMPMergeSort >> result_$i.json
   echo " ," >> result_$i.json
   echo -n -e "\t\t\"hpx\": " >> result_$i.json
 #  echo " "
 #  echo -n -e "${CYAN}HPX MergeSort: ${NC}"
-  ../build_output/hpxMergeSort | tee -a result_$i.json
+#  ../build_output/hpxMergeSort | tee -a result_$i.json
+  ../build_output/hpxMergeSort >> result_$i.json
 #  echo " "
   echo -e "\n\t}\n}" >> result_$i.json
 done
