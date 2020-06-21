@@ -6,7 +6,7 @@ import numpy as np
 path_to_data = 'metrics/'
 data_file = [pos for pos in os.listdir(path_to_data) if pos.endswith('.data')]
 
-taskSizeList = [1, 4, 10, 20, 100, 200]
+taskSizeList = range(10, 500, 10)
 
 def mean(in_list):
     length = len(in_list)
@@ -17,9 +17,9 @@ def mean(in_list):
 
 
 genLists = {
-    "seq": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-    "omp": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-    "hpx": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    "seq": [0.0] * len(taskSizeList),
+    "omp": [0.0] * len(taskSizeList),
+    "hpx": [0.0] * len(taskSizeList)
 }
 
 nrFiles = 0
@@ -51,4 +51,5 @@ ax.set_ylabel('Execution Time')
 ax.set_title('Generic Comparison')
 
 plt.legend(loc=1)
-plt.show()
+fig.savefig("genericComp")
+#plt.show()
