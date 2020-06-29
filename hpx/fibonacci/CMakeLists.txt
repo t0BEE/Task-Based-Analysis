@@ -4,6 +4,7 @@ project(hpxFibonacci CXX)
 
 set(CMAKE_CXX_COMPILER g++)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lm")
+set(HPX_WITH_NETWORKING OFF)
 
 # HPX_DIR and HPX_INSTALL_DIR are defined as environment variables
 

@@ -7,16 +7,12 @@ A generic algorithm, fibonacci and mergesort are chosen to be implemented and co
 The latter two are part of the [Barcelona OpenMP Benchmark Suite](https://github.com/bsc-pm/bots), whereas the generic algorithm is chosen to enable maximum flexibility in task size.
 
 ## Stress Test Scripts
-To build the algorithms it is necessary to switch the srcipts directory and run the `build.sh` script.
-Merge sort and the generic algorithms can be adjusted in their `CMakeList.txt` by changing the `VECTOR_SIZE` variable by any integer value.
-Ater building the code, it can be run by calling the `output.sh` script and providing certain command line parameters.
-1: provide the number of turns of the generic algorithm by an integer.
-2: provide the size of each task used in the generic algorithm by an integer.
-3: decide which Fibonacci number to calculate.
-
+To build and run the algorithms it is necessary to switch into the `srcipts` directory and run the `pipeline.sh` script.
 The `scripts` folder includes several scripts to build and run the algorithm.
-Just execute the `run.sh` script or `run_spack.sh` in case you are using spack.
+In case you are using spack, `spack_pipeline.sh` needs to be executed instead.
 
+Merge sort and the generic algorithms can be adjusted in their `CMakeList.txt` by changing the `VECTOR_SIZE` variable by any integer value.
+For further asdjustments the parameters in the pipeline scripts can be changed.
 
 ## Dependencies
 	
