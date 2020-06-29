@@ -82,12 +82,32 @@
   
   A new model of parallel execution is introduced to enable all of this features --- called \textit{Parallex}.
   HPX is the runtime system supporting this new model.
-  The authors of \cite{Kaiser.2009} compare HPX with MPI extensively in their work.
-  For example, ParalleX maps a process to multiple cores in contrast to the conventional way mapping a process to just one core.
-  Thereby many concurrent threads inside this process are allowed and it is possible  to create child process accessing the cores.
-    
-  % Possible to explain ParalleX even further --> architecture e.g. (1 and 2)
-	
+  It consists of components which can be seen in figure \ref{fig:HPXcomp}.
+  Additionally, it shows the current architecture of HPX and how the following ParalleX components are included.~\cite{Kaiser.2009}\\
+  \textbf{Parcel Subsystem} encapsulates method calls into parcels.
+  These contain the global address of the object whose method is called and the necessary arguments.
+  Parcels are communicated via localities which are placed on each node and can be seen as parcel interfaces.
+  The parcel subsystem is especially useful when it comes to remote method calls.\\
+  \textbf{Active Global Address Space (AGAS)} includes all localities the current application is using.
+  Global identifiers ease to locate objects in the network.
+  Having this global address space furthermore allows to move objects across localities without changing its address.\\  
+  \textbf{Instrumentation and Adaptivity} includes several performance countering and monitoring tools.
+  They might be helpful when debugging or analyzing the program and offer insights without using additional tools.\\
+  \textbf{Threading Subsystem} uses a work-queue based execution strategy to schedule HPX threads.
+  These are either created locally or the threading subsystem converts parcels on receive into HPX threads.
+  In contrast to other systems the ParalleX model maps \(m\) internal threads instead of just 1 onto \(n\) kernel threads.
+  This allows ParalleX to switch between threads without the need of kernel calls and their context switch overhead.\\  
+  \textbf{Local Control Objects (LCO)} are used for scheduling and abstract mechanism used to do so.
+  For example, \textit{futures} are proxies for results not yet known and can only be accessed after the result is available.
+  In case the future is accessed earlier, the thread doing so is suspended.
+  Additional to special objects such as futures, HPX also offers traditional concurrency control mechanisms, for instance mutexes and semaphores.
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.45\textwidth]{figures/parallexArchitecture.JPG}
+	\caption{ParalleX Components Implemented in HPX~\cite{Kaiser.2009}}
+	\label{fig:HPXcomp}
+\end{figure}
+  	
 	
 \subsubsection{Tasks in HPX}
   Various program models increase their efforts on tasking in recent years and increase the possibilities in local parallelism.
@@ -137,7 +157,7 @@
   The authors of \cite{Duran.2009} introduce a benchmark suite to test the impact of different implementation decisions using OpenMP tasks.
   The benchmark suite is called \textit{Barcelona OpenMP Task Suite (BOTS)} and includes nine benchmarks:\\
     \textbf{Alignment} is an algorithm aligning protein sequences against every other sequence.\\
-    \textbf{Fourier Transformation}\\
+    \textbf{Fourier Transformation} tries to approximate a periodic function by several subfunctions.\\
     \textbf{Fibonacci} calculates the \(n^{th}\) number of the Fibonacci sequence.\\
     \textbf{Floorplan} computes the optimal floorplan distribution of a number of cells.\\
     \textbf{Health} simulates the Colombian Health Care System.\\
