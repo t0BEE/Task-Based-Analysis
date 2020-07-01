@@ -30,3 +30,6 @@ spack_init.sh
 
 # ignore metrics
 scripts/metrics/*
+
+# ignore slurm scripts
+slurm*
