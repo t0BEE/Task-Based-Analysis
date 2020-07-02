@@ -14,6 +14,7 @@ fi
 for i in $(seq 1 $4)
 do
 
+  echo "- Turn $i -"
   echo "{" > result_$i.json
 
   # Generic Execution
