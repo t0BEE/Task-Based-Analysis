@@ -8,6 +8,7 @@ runList=$(seq 10 10 500)
 
 for run in $(seq 1 50)
 do
+  echo "-- Run $run --"
   echo "{" > genericComp_$run.data
   echo -n -e "\"sequential\": [" >> genericComp_$run.data
   for i in ${runList[@]}

@@ -8,6 +8,7 @@ runList=$(seq 1 2 21)
 
 for run in $(seq 1 50)
 do
+  echo "-- Run $run --"
   echo "{" > genericMatrix_$run.data
   echo -n -e "\"sequential\": [" >> genericMatrix_$run.data
   for i in ${runList[@]}
