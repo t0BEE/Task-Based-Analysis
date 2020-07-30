@@ -29,7 +29,7 @@ do
 #  echo -n -e "${CYAN}openMP Generic: ${NC}"
 #  ../build_output/openMPGeneric $1 $2 | tee -a result_$i.json
   ../build_output/openMPGeneric $1 $2 >> result_$i.json
-  echo " ," >> result_$i.json
+  echo "," >> result_$i.json
   echo -n -e "\t\t\"hpx\": " >> result_$i.json
 #  echo " "
 #  echo -n -e "${CYAN}HPX Generic: ${NC}"
@@ -45,13 +45,13 @@ do
 #  echo -n -e "${CYAN}Sequential Fibonacci: ${NC}"
 #  ../build_output/sequentialFibonacci $3 | tee -a result_$i.json
   ../build_output/sequentialFibonacci $3 >> result_$i.json
-  echo " ," >> result_$i.json
+  echo "," >> result_$i.json
   echo -n -e "\t\t\"openMP\": " >> result_$i.json
 #  echo " "
 #  echo -n -e "${CYAN}openMP Fibonacci: ${NC}"
 #  ../build_output/openMPFibonacci $3 | tee -a result_$i.json
-  ../build_output/openMPFibonacci $3 >> -a result_$i.json
-  echo " ," >> result_$i.json
+  ../build_output/openMPFibonacci $3 >> result_$i.json
+  echo "," >> result_$i.json
   echo -n -e "\t\t\"hpx\": " >> result_$i.json
 #  echo " "
 #  echo -n -e "${CYAN}HPX Fibonacci: ${NC}"
@@ -67,13 +67,13 @@ do
 #  echo -n -e "${CYAN}Sequential MergeSort: ${NC}"
 #  ../build_output/sequentialMergeSort | tee -a result_$i.json
   ../build_output/sequentialMergeSort >> result_$i.json
-  echo " ," >> result_$i.json
+  echo "," >> result_$i.json
   echo -n -e "\t\t\"openMP\": " >> result_$i.json
 #  echo " "
 #  echo -n -e "${CYAN}openMP MergeSort: ${NC}"
 #  ../build_output/openMPMergeSort | tee -a result_$i.json
   ../build_output/openMPMergeSort >> result_$i.json
-  echo " ," >> result_$i.json
+  echo "," >> result_$i.json
   echo -n -e "\t\t\"hpx\": " >> result_$i.json
 #  echo " "
 #  echo -n -e "${CYAN}HPX MergeSort: ${NC}"
