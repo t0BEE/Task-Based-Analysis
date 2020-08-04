@@ -140,15 +140,41 @@
   
   
 \subsection{hpxMP}
+
+
+
   A rather new approach is \textit{hpxMP}.
   It uses OpenMP 5 tasks together with HPX.  
   
-  \textit{\textbf{TODO!}}
-%\cite{TianyiZhang.2019}
-%- introduction of hpxMP
+  
+\cite{hpxMP.2019}
+  - implementation of OpenMP standard using an underlying hpx system
+  - allows to run the code on an asynchronous Many-task (AMT) system
+  
+  - AMT emerges as new parallel programming paradigm
+  - take advantage of fine grained tasks to distribute them across machines
+  - HPX = a AMT system
+  - MPI + OpenMP lacks scalability and parallel efficiency compared to AMTs
+    --> AMT + OpenMP might be a better solution as it may also follow the C++ standard
+    --> use hpx lightweight threads instead of system threads
+  
+  - C++ standards focus on high-level interfaces which might replace OpenMP ???? (not sure if relevant)
+  
+  - figure about how hpxMP fits in an OpenMP application
+  - hpxMP adds additional layers (in figure in grey)
+  - instead of calling OpenMP functions, equivalent hpxMP functions are called redirecting the call to appropriate hpx functions
+  
+  - 4 benchmarks compare hpxMP with Clang's implementation of OpenMP
+  - not able to reach the same performance --> hpxMP is not optimized yet
+  - System ran on one node
 
-%\cite{Zhang.2192020}
-%- OpenMP 5 tasks in hpxMP
+
+\cite{Zhang.2192020}
+ - extend hpxMP with a subset of the task features of OpenMP 5.0 standard
+ - among others, merge sort from BOTS benchmark suite with cut offs to compare different OpenMP implementations
+ - hpxMP can reach similar performance for larger input sizes 
+   - or even faster when a lot of joining is done, as HPX threads produce less overhead
+ - slower for smaller input sizes, overheads introduced by the HPX scheduler
 
 
     
