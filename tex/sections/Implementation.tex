@@ -39,21 +39,38 @@ long long fibonacci(long long input) {
   if (input < 2) return input;
   hpx::future<long long> n1 =
       hpx::async(fibonacci, input - 1);
-  hpx::future<long long> n2 =
-      hpx::async(fibonacci, input - 2);
-  return n1.get() + n2.get();
+  long long n2 = fibonacci(input - 2);
+  return n1.get() + n2;
 }
 \end{lstlisting}
   The HPX implementation of the Fibonacci algorithm can be seen in listing \ref{lst1:fibHPX}.
   In contrast to OpenMP, HPX works with futures to abstract results of function calls.
   Calling a function with \texttt{hpx::async} creates a task and immediately returns a future to continue the execution.
   Calling \texttt{get} on a future suspends the current thread until this future is returned.
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.45\textwidth]{figures/fib_NoOp.png}
+	\caption{Execution times of the Fibonacci algorithm}
+	\label{fig:fib_NoOp}
+\end{figure}
+
+- 22 fibonacci number
   \\
  
   \paragraph{Merge Sort}
   The Sort algorithm of BOTS is slightly adjusted to a normal merge sort.
   It is a suitable use case, easy to implement and can also spawn a high number of tasks.
   Also in case of merge sort no cut off is implemented.
+  \begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.45\textwidth]{figures/sort_NoOp.png}
+	\caption{Execution times of Merge Sort}
+	\label{fig:sort_NoOp}
+  \end{figure}
+  The measurements of figure \ref{fig:sort_NoOp} are created on environment three and show the average of 100 runs.
+  The merge sort is run on 10.000 random elements which are created in a deterministic way.
+  Similar to Fibonacci, merge sort also creates a lot of tasks and HPX shows the slowest execution time.
+  Sequential has the shortest average time and the OpenMP average times differ more significantly this time compared to the Fibonacci example. 
   \\
   
   \paragraph{Generic Algorithm}
@@ -72,19 +89,33 @@ long long fibonacci(long long input) {
   The task size furthermore defines how many tasks are used per run.
   This number is equal to the vector size divided by the task size.
   As each turn depends on the execution of the previous turn, the number of dependencies can be increased by using more tasks per turn.
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.45\textwidth]{figures/generic_NoOp.png}
+	\caption{Execution times of the generic algorithm}
+	\label{fig:gen_NoOp}
+\end{figure}
+
+Figure \ref{fig:gen_NoOp} shows the measured execution times for the generic algorithm in his three versions.
+Again these are the average values of 100 runs on the system of environment three.
+20 turns are made with a task size of 20 and the array size is 1,048,576.
+It can be seen that the range of OpenMP times is quite big compared to the sequential and HPX version.
+Additionally, the OpenMP version takes the longest time to complete the execution whereas HPX is the fastest of these three. 
 		
 \subsection{Optimization}
+  On possible optimization used in the BOTS benchmarks and mentioned in \cite{LaGrone.2011} is to use the cutoff option.
+  This can be achieved by using if clause which is provided by the task directive.
+  In case this clause evaluates to false no task will be spawned and the execution continues with the function call.
+  \textbf{TODO: CUT OFF RESULTS -- USE BOTS CODE}
+   
+  Another optimization approach might be to see if there is a difference in using tied or untied tasks.
+  Untied tasks improve the load balancing as each free thread can start executing a task which is ready to be executed.
+  The disadvantage of untied tasks is that the data is not always available locally.
+  This means in case a thread wants to execute a ready task which is not created by it, the data and context has to be transferred to new execution location.
+  \textbf{TODO: UNTIED VS TIED TASKS}	
 	
-	\cite{LaGrone.2011}
-	--> task has an if clause evaluated to false will directly continue with the generated task --> depth-first
-	--> untied tasks (balancing) vs tied (data locality)
-	--> (maybe) use taskwait for less scheduling overhead --> depth-first
-	--> cutoff, regulating task creation, if condition is not met execute tasks immediately and do not place them on the queue
-		--> create new OMP\_TASK\_CREATE\_COND environment variable
 		
-    --> does the shared variable directive decrease the work for task creation???
     
-    --> a nowait directive at the omp single
     
     \cite{MKlemm.2018}
  --> directives to optimize
