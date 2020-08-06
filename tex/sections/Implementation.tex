@@ -54,7 +54,9 @@ long long fibonacci(long long input) {
 	\label{fig:fib_NoOp}
 \end{figure}
 
-- 22 fibonacci number
+Figure \ref{fig:fib_NoOp} shows boxplots of 100 runs of the 22\textsuperscript{nd} Fibonacci number.
+It illustrates the execution times of the sequential, OpenMP and HPX version.
+The sequential and OpenMP implementation need the fewest time to complete, whereas the HPX version takes a lot more time.
   \\
  
   \paragraph{Merge Sort}
@@ -103,10 +105,18 @@ It can be seen that the range of OpenMP times is quite big compared to the seque
 Additionally, the OpenMP version takes the longest time to complete the execution whereas HPX is the fastest of these three. 
 		
 \subsection{Optimization}
-  On possible optimization used in the BOTS benchmarks and mentioned in \cite{LaGrone.2011} is to use the cutoff option.
-  This can be achieved by using if clause which is provided by the task directive.
+  One possible optimization used in the BOTS benchmarks is implementing a cutoff option.
+  This can be achieved by using if clause which is provided by the task directive as it is described in \cite{LaGrone.2011}.
   In case this clause evaluates to false no task will be spawned and the execution continues with the function call.
-  \textbf{TODO: CUT OFF RESULTS -- USE BOTS CODE}
+  Figure \ref{fig:cutoff} shows the results without a cutoff and with a cutoff level equal to eight. 
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.45\textwidth]{figures/cutoff_plot.png}
+	\caption{Execution times of the Fibonacci algorithm with cutoffs}
+	\label{fig:cutoff}
+\end{figure}
+  \textbf{TODO: Present numbers}
+ 
    
   Another optimization approach might be to see if there is a difference in using tied or untied tasks.
   Untied tasks improve the load balancing as each free thread can start executing a task which is ready to be executed.
