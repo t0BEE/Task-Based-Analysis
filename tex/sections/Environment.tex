@@ -1,5 +1,5 @@
 \section{Environment}
-  The code is executed on different systems which differ in hardware and software configuration.
+  The code is executed on different systems which differ in hardware configuration.
   This might show different behavior of the implementations in different contexts.
 
 \begin{table}
@@ -15,17 +15,18 @@ Cores &  &  &  \\\hline
 \end{table}
 
 The software specifications of the environments can be seen in table \ref{tab:softEnv}.
-\texttt{GCC} is used in Version 9.2 as compiler in all environments.
+On all systems the same software versions are used and contain \texttt{GCC}, \texttt{HPX}, \texttt{Boost} and \texttt{OpenMP}.
+HPX and Boost are installed and build by using Spack~\cite{Spack.2020} which is a package management tool.
 \begin{table}
 \centering
 \caption{Software Specification of the Environments}
-\begin{tabular}[h]{l c c c}
+\begin{tabular}[h]{l c c}
 \centering
- & Environment 1 & Environment 2 & Environment 3 \\\hline
-Compiler &  &  &  \\
-HPX Version &  &  &  \\
-OpenMP Version &  &  &  \\
-Boost Version &  &  &  \\\hline
+ & Environment 1 & Options\\\hline
+Compiler & GCC 9.2.0 & \\
+HPX Version & 1.4.0 & cxxstd=14 networking=none  \\
+Boost Version & 1.70.0 & cxxstd=14 \\
+OpenMP Version & 4.5 & \\\hline
 \end{tabular}
 \label{tab:softEnv}
 \end{table}

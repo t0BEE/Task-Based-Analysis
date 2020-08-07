@@ -3,13 +3,17 @@
   This can be achieved by using if clause which is provided by the task directive as it is described in \cite{LaGrone.2011}.
   In case this clause evaluates to false no task will be spawned and the execution continues with the function call.
   Figure \ref{fig:cutoff} shows the results without a cutoff and with a cutoff level equal to eight. 
-\begin{figure}[htbp]
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.45\textwidth]{figures/cutoff_plot.png}
 	\caption{Execution times of the Fibonacci algorithm with cutoffs}
 	\label{fig:cutoff}
 \end{figure}
-  \textbf{TODO: Present numbers}
+
+The mean values of 100 runs are \(2057.34\) ms and \(394.87\) ms for OpenMP without and with a cutoff.
+The average measurements for HPX are \(237491.49\) ms without and \(5267.67\) ms with cutoff.
+It can be seen that the HPX implementation benefits more by the cutoff.
+HPX speeds up by a ratio of approximately \(45\) and the OpenMP implementation speeds up only by \(5\).
  
    
   Another optimization approach might be to see if there is a difference in using tied or untied tasks.
