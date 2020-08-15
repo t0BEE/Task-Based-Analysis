@@ -38,7 +38,17 @@ st169736@stud.uni-stuttgart.de}
 \maketitle
 
 \begin{abstract}
-abstract
+Task-based programming is used to parallelize irregular structures like recursive function calls.
+A prominent example for a run time system allowing to utilize tasks is OpenMP.
+Another rather new run time system designed for task-based programming is HPX.
+
+These two systems have not yet been compared concerning tasking performance using.
+To do so the Fibonacci, Merge Sort and a generic algorithm are implemented using both run time systems.
+
+The performances of the executions are compared and some optimization ideas are evaluated.
+
+It came clear that both run time systems have structures they perform better with compared to the other system.
+HPX has problems managing high amounts of small tasks in hierarchical structure, whereas it achieves better performance with bigger tasks and non hierarchical structures.
 \end{abstract}
 
 \begin{IEEEkeywords}

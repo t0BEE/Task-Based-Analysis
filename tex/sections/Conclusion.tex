@@ -1,1 +1,20 @@
 \section{Conclusion \& Future Work}
+hpxMP is currently in the process of development and soon allows to decide to use the OpenMP or HPX thread system with the HPX programming interface.
+The findings of this paper might be used to help a programmer decide one of these thread systems.
+This paper compared both systems for their tasking performance using three algorithms, Fibonacci, Merge Sort and a generic one.
+It came clear that HPX achieves minor performance with a high amount of tasks in hierarchical structure compared to OpenMP.
+This is due to the fact that HPX produces more overhead when it comes to scheduling.
+In contrast to OpenMP, HPX threads may be suspended which leads to the situation that scheduling is conducted more often.
+The implemented Fibonacci using the cutoff option undermines that statement as HPX benefits much more from this compared to OpenMP.
+However, looking at the experiment using the generic algorithm with variable number of tasks and task sizes, it can be seen that this lack of performance for HPX is only the case for hierarchical task spawning, for instance in Fibonacci and Merge Sort.
+In the experiments using the generic algorithm HPX could show that its advantage of lightweight threads.
+They produce less overhead when forking and joining and let HPX perform best for that algorithm.
+The paper furthermore analyzed optimizations for HPX, e.g. using dataflow principles or different scheduling policies.
+These experiments did not really lead to any significant gain in performance, however showing slight trends.
+For example the local thread scheduling policy for the generic algorithm.
+
+
+A remaining open field concerning both run time systems is a comparison between their GPU support.
+As HPX and OpenMP may move computations to these accelerators it might be interesting to see how both perform utilizing these with tasks.
+Furthermore, experiments are yet only done using these three algorithms.
+Both systems should be further tested on algorithms showing a different behavior concerning task sizes, number of tasks and task hierarchy.
