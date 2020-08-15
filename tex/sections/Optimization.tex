@@ -44,6 +44,7 @@ This experiment compares the HPX Fibonacci implementation using two futures with
 The last approach follows the same concept as the dataflow implementation, but works without this object type.
 \texttt{when\_all} takes futures as parameters and starts executing when the values of all futures are available.
 For this implementation the example code of HPX is taken as reference.~\cite{HPXGitHub.2020}
+The idea is to utilize the dataflow principle to avoid blocked tasks and increase the scheduling overhead.
 
 \begin{figure}[h]
 	\centering
@@ -53,6 +54,9 @@ For this implementation the example code of HPX is taken as reference.~\cite{HPX
 \end{figure}
 
 The average execution times of 100 runs on environment 3 for the 22\textsuperscript{nd} Fibonacci number's calculation are illustrated in figure \ref{fig:fib_dataflow}.
+It can be seen that the normal Fibonacci implementation has the shortest execution times of these three.
+This means that the dataflow principle cannot help avoiding scheduling overhead for HPX implementations.
+Instead it produces additional overhead.
 
 
 \subsection{HPX - Thread Scheduling Policies}

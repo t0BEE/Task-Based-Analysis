@@ -89,7 +89,8 @@
   \textbf{Parcel Subsystem} encapsulates method calls into parcels.
   These contain the global address of the object whose method is called and the necessary arguments.
   Parcels are communicated via localities which are placed on each node and can be seen as parcel interfaces.
-  The parcel subsystem is especially useful when it comes to remote method calls.\\
+  Localities thereby represent single nodes in the execution network.
+  The parcel subsystem is especially useful when it comes to remote method calls as it eases the work transfer between localities.\\
   \textbf{Active Global Address Space (AGAS)} includes all localities the current application is using.
   Global identifiers ease to locate objects in the network.
   Having this global address space furthermore allows to move objects across localities without changing its address.\\  
