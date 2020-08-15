@@ -24,17 +24,42 @@ HPX & \(237491.49\) ms & \(5267.67\) ms \\\hline
 \label{tab:cutoff}
 \end{table}
 
-\subsection{OpenMP untied / tied Tasks}
+\subsection{OpenMP - untied / tied Tasks}
   Another optimization approach might be to see if there is a difference in using tied or untied tasks.
   Untied tasks improve the load balancing as each free thread can start executing a task which is ready to be executed.
   The disadvantage of untied tasks is that the data is not always available locally.
   This means in case a thread wants to execute a ready task which is not created by it, the data and context has to be transferred to new execution location.
   \textbf{TODO: UNTIED VS TIED TASKS}	
+  
+  
+\subsection{HPX - Fibonacci Dataflow}
+HPX provides further LCOs than just futures.
+Another object which might be useful is the \textit{dataflow} object.
+It is an object which is used to define dependencies in functions easily.
+Dataflows take a function and its parameters when initialized and call the function when all of its parameters are available. 
+This might be the case for example if parameters are returned by futures.
+However, it is also possible to concatenate dataflow objects to create a dependent hierarchy.~\cite{TheSTEARGroup.2020}
 
-\subsection{HPX Thread Scheduling Policies}
+This experiment compares the HPX Fibonacci implementation using two futures with an implementation utilizing dataflows and another Fibonacci implementation using \texttt{when\_all}.
+The last approach follows the same concept as the dataflow implementation, but works without this object type.
+\texttt{when\_all} takes futures as parameters and starts executing when the values of all futures are available.
+For this implementation the example code of HPX is taken as reference.~\cite{HPXGitHub.2020}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.45\textwidth]{figures/fibDataflow.JPG}
+	\caption{Execution times of Fibonacci using HPX and different dataflow constructs}
+	\label{fig:fib_dataflow}
+\end{figure}
+
+The average execution times of 100 runs on environment 3 for the 22\textsuperscript{nd} Fibonacci number's calculation are illustrated in figure \ref{fig:fib_dataflow}.
+
+
+\subsection{HPX - Thread Scheduling Policies}
  The authors of \cite{hpxMP.2019} and \cite{TheSTEARGroup.2020} state different thread scheduling policies in HPX.
- However, not all of them are available at the version used in this environment.
- Therefore only the policies used are explained.\\
+ However, not all of them are available at the HPX version used.
+ Therefore only the policies used are explained.
+ The experiment is run on environment 2.\\
  \textbf{local-priority} gives each operating system (OS) thread one queue they can pull their work from.
  Furthermore a high and low priority queue are created which is accessible by each OS thread.
  Work from these queues is only pulled in case the dedicated OS thread queue is empty.
