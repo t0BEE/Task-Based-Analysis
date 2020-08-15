@@ -1,11 +1,16 @@
 \section{Introduction}
-\cite{Ayguade.2009}
-  - irregular and dynamic structures, eg while loops, dynamic inked list traversal and recursive calls
-  - defining independent units of work which can be scheduled
-    --> tasking
-  - tasks can exploit irregular parallelism
-  - mixing data and task parallelism improves the overall performance of an application (additional sources are provided)
-
-\cite{Qawasmeh.2014}
-  - two crucial issues should be managed by any task scheduler
-    - data locality in terms of cache and load balancing
+  Task-based programming increased in popularity in recent years.
+  It allows to parallelize irregular and dynamic structures like while loops, dynamic linked list traversals and recursive function calls.~\cite{Ayguade.2009}
+  OpenMP and HPX are both parallel run time system which increased focus on task-based parallelism.~\cite{TheSTEARGroup.2020}
+  OpenMP as de facto standard for shared-memory parallel programming did even increase its directive pool concerning tasks in the latest version, 5.0.~\cite{Zhang.2192020}
+  These two run time systems have not yet been compared in performance of task-based parallel execution.
+  This paper tries till fill this gap.
+  The significant difference in performance will be due to the task scheduler of both systems as the workload for execution has to be equal.
+  Therefore the task scheduler plays a crucial role as it has to manage load balancing and data locality.~\cite{Qawasmeh.2014}
+  
+  Section \ref{sec:RelWork} will introduce the tasking principles and shows how they are used in both run time systems.
+  It furthermore explains a new approach about using OpenMP tasks in HPX.
+  Afterwards section \ref{sec:implem} presents the used benchmark algorithm to compare OpenMP and HPX.
+  Then a short overview of the experiment environment is granted, followed by the actual experiments in section \ref{sec:Opt}.
+  The two run time systems are compared to each other and a sequential implementation.
+  Further optimization options are tested and evaluated at the end before a conclusion is drawn.
