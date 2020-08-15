@@ -1,5 +1,5 @@
 \section{Optimization}
-\subsection{Cutoff}
+\subsection{Fibonacci - Cutoff}
   One possible optimization used in the BOTS benchmarks is implementing a cutoff option.
   This can be achieved by using if clause which is provided by the task directive as it is described in \cite{MKlemm.2018}.
   In case this clause evaluates to false no task will be spawned and the execution continues with the function call in a normal sequential way.
@@ -81,10 +81,10 @@ The other two algorithms show no significant different in the policies.
 However a trend can be seen as the mean values of the lifo policies show a shorter execution time in all cases.
 This may be due to the fact that Fibonacci and merge sort create a task hierarchy in which the early created tasks are suspended till the end.
 
-\subsection{Various Task Sizes}
+\subsection{Generic Algorithm - Number of Tasks}
 For a better comparison of the three algorithms, various task sizes might be used.
 The generic algorithm allows to adjust task sizes by parameters.
-The \textbf{TODO: EPYC} environment is taken for this test run in which tasks sizes ranging from 10 elements to 500 elements per task.
+The second environment is taken for this test run in which tasks sizes ranging from 10 elements to 500 elements per task.
 The total number of elements in the arrays \(1,048,576\) and the arrays are computed 50 times.
 \begin{figure}[h]
 	\centering
@@ -120,17 +120,31 @@ OpenMP does have operating system threads and therefore produces more overhead h
 However, reaching a certain task size OpenMP also takes less time than the sequential execution of the generic algorithm.
 
 
-\subsection{Generic Algorithm Matrices}
+\subsection{Generic Algorithm - Task Sizes}
 As the previous example of the generic algorithm does only increase the amount of tasks used and not the overall workload, another approach is also implemented.
-In this experiment the generic algorithm is adjusted to produce a squared matrix per array element.
-The sizes of these matrices can be adjusted by a parameter and varies in this experiment.
-Each task does now only contain one element.
+In this experiment the generic algorithm is adjusted to produce a squared workload per array element.
+The workload can be adjusted by a parameter and varies in this experiment.
+In contrast to the experiments before, each task does only contain one element.
 This setup does allow to have a constant number of tasks with an option to increase or decrease the task size and overall workload.
+In each task the elements value is multiplied a defined amount of times.
+The parameter for defining this size is squared, which means that if the parameter is equal to 3 the element is multiplied 9 times.
+Each time the value is multiplied by the number of that multiply calculation.
+In the example before the first value will be multiplied by 1 and multiplied by 9 in the last calculation.
+The sinus function is then applied on the results and all of them are summed up and copied to the next array.
+This experiment is also run on environment two having the same array size as the experiment before.
+The number of calculations starts with 1x1 and increases by 2 in each dimension.
+The biggest task size reached is 21x21.
+For the HPX version the local thread scheduling policy is used.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.45\textwidth]{figures/genericMatrix.png}
+	\caption{Execution times of generic algorithm task matrices}
+	\label{fig:genMatrix}
+\end{figure}
 
+Figure \ref{fig:genMatrix} shows the average execution time of 15 runs.
+As already mentioned, the number of tasks are the same for all executions.
+Increasing the matrix size increases the task size and overall workload as it can be seen by the sequential execution's curve.
+The HPX execution time has a quite constant trend and OpenMP's curve decreases with an increasing task size, although the overall workload increases.
 
-This experiment is also run on the \textbf{TODO: EPYC} environment having the same array size as the experiment before.
-The size of the matrices starts with 1x1 and increases by 2 in each dimension.
-The biggest matrix size reached is 21x21.
-
- 
 

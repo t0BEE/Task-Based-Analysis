@@ -2,14 +2,19 @@
   The code is executed on different systems which differ in hardware configuration.
   This might show different behavior of the implementations in different contexts.
 
+The hardware specifications of the three environments can be seen in table \ref{tab:hardEnv}.
+Environment 1 has has an Intel Xeon Phi 7210 processor with 64 cores and the available memory is about 92 GB.
+Environment 2.....
+The third environment ...
 \begin{table}
 \centering
 \caption{Hardware Specification of the Environments}
 \begin{tabular}[h]{l c c c}
- & Environment 1 & Environment 2 & Environment 3 \\\hline
-CPU &  &  &  \\
-RAM &  &  &  \\
-Cores &  &  &  \\\hline
+% 1: argon-knl, 2: argon-epyc, 3: IPVS-epyc
+ & Environment 1 & Environment 2 & Environment 3  \\\hline
+CPU & Intel Xeon Phi 7210 &  & AMD EPYC 7742 \\
+RAM & $\sim 92$ GB &  & $\sim 3.8$ GB \\
+Cores & 64 &  & 64 \\\hline
 \end{tabular}
 \label{tab:hardEnv}
 \end{table}

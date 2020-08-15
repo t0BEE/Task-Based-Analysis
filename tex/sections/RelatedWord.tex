@@ -3,13 +3,15 @@
 \subsection{Tasking}
 \label{subsec:Tasking}
   Having the task construct as mean to parallelize a program allows to utilize irregular parallelism.
-  Irregular parallelism is widely used these days and includes parallel execution of while loops or recursive function calls for instance.
+  This type of parallelism utilizes irregular data structures, e.g. linked lists rather than arrays.
+  Furthermore communication phases and the needed amount of communication cannot be identified in advance.
+  This is also the case for the amount of computation.\cite{Chakrabarti.1993}
+  Parallel execution of while loops or recursive function calls perform irregular parallelism for instance.
   Tasking explicitly specifies independent units of work which can be executed in parallel.
-  This enables a more dynamic way of parallelization.
-  However, a disadvantage of this kind of parallelism is that it increases the complexity of a program and poor implementations can lead to an increased overhead.~\cite{Ayguade.2009}~\cite{LaGrone.2011}
+  This enables a more dynamic way of parallelization which can handle irregular parallelism.
+  However, a disadvantage of this kind of parallelism is that it increases the complexity of a program and poor implementations can lead to an increased overhead.~\cite{Ayguade.2009}~\cite{LaGrone.2011} 
   
-  
-  The used runtime system plays a crucial role when it comes to the application's performance using tasking. 
+  The used runtime system for parallel execution plays a crucial role when it comes to the application's performance using tasking. 
   For example, as the tasking construct creates several tasks which will be executed by threads, the performance of an application relies on the thread scheduler of the runtime system.
   The authors of \cite{LaGrone.2011} discuss different aspects of a runtime system using the task construct.
   The efficiency of such depends on the data structures which store unfinished tasks, manage task switching and regulate task creation.
@@ -20,7 +22,7 @@
   Breadth-first means that child tasks created by the parent task and put into the queue to be scheduled at any time.
   Whereas breadth-first schedulers switch to child tasks directly after their creation and execute them.
   This leads to a smaller number of tasks in the queue and less concurrency opportunities.
-  However, the data reuse increases.
+  However, the data reuse may increase depending on the running application.
  
  	
   The following subsections \ref{subsec:OpenMP} and \ref{subsec:HPX} introduce two runtime systems utilizing tasks.
@@ -71,10 +73,10 @@
   %1\cite{Kaiser.2014}
   %2\cite{Kaiser.2009}	  
   
-  HPX aims to resolve problems in scalabilitiy, power efficiency, resource management and even further ones which may raise and increase by moving from Peta- to Exascale systems.
+  HPX aims to resolve problems in scalabilitiy, resource management and even further ones which may raise and increase by moving from Peta- to Exascale systems.
   It focuses on parallel and distributed development independent of the system's scale.
   This is done by providing a general purpose C++ runtime system with an innovative design.
-  It is described as a mixture of lightweight synchronization, global system-wide address space and fine grain parallelism.
+  It is described by the authors of \cite{Kaiser.2014} as a mixture of lightweight synchronization, global system-wide address space and fine grain parallelism.
   Message driven computation can be achieved with a small amount of effort.
   A remote execution has the same semantics as a local one and can thereby be done implicitly.
   Furthermore, it offers the programmer explicit support for accelerators such as general purpose graphical processing units.~\cite{Kaiser.2014}
@@ -162,7 +164,7 @@
   The motivation of this approach is to ease the migration from OpenMP to Asynchronous Many-Task (AMT) systems.
   AMT as a new parallel programming paradigm utilizes fine grained tasks to distribute the workload across multiple node.
   It is similar to the well known \textit{MPI+X} approach in which the Message Passing Interface (MPI) is used together with OpenMP for example.
-  However, MPI+X lacks scalability and parallel efficiency compared to AMTs.
+  However, for certain applications MPI+X offers less scalability and parallel efficiency compared to AMTs, for instance in \cite{Dai.11172019}.
   HPX as an example for an AMT might also be more convenient as it follows the newest C++ standard and therefore has a more flatten learning curve for C++ programmers.
   Another advantage of hpxMP might have in contrast to MPI+X is that it uses HPX lightweight threads instead of system threads.
   They are briefly explained in \ref{subsubsec:TasksHPX}.
