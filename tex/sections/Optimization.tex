@@ -29,8 +29,18 @@ HPX & \(237491.49\) ms & \(5267.67\) ms \\\hline
   Untied tasks improve the load balancing as each free thread can start executing a task which is ready to be executed.
   The disadvantage of untied tasks is that the data is not always available locally.
   This means in case a thread wants to execute a ready task which is not created by it, the data and context has to be transferred to new execution location.
-  \textbf{TODO: UNTIED VS TIED TASKS}	
   
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.45\textwidth]{figures/tied.JPG}
+	\caption{Execution times of Fibonacci and Merge Sort with tied and untied Tasks in OpenMP}
+	\label{fig:tied}
+\end{figure}
+
+  This experiment is run on environment 1 calculating again the Fibonacci number of 22.
+  As figure \ref{fig:tied} shows there is no significant difference in execution time for both algorithms.
+  Using tied or united tasks may only have minor impacts.
+  As already mentioned this is due to the trade of of data locality and load balancing. 
   
 \subsection{HPX - Fibonacci Dataflow}
 HPX provides further LCOs than just futures.
