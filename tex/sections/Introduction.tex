@@ -5,12 +5,14 @@
   OpenMP as de facto standard for shared-memory parallel programming did even increase its directive pool concerning tasks in the latest version, 5.0.~\cite{Zhang.2192020}
   These two run time systems have not yet been compared in performance of task-based parallel execution.
   This paper tries till fill this gap.
-  The significant difference in performance will be due to the task scheduler of both systems as the workload for execution has to be equal.
-  Therefore the task scheduler plays a crucial role as it has to manage load balancing and data locality.~\cite{Qawasmeh.2014}
+  
+  The main focus is put on the task schedulers of both systems.
+  Task schedulers play a crucial role as they have to manage load balancing and data locality.
+  Having the same computation workload the differences in performance will emerge from these components.~\cite{Qawasmeh.2014}
   
   Section \ref{sec:RelWork} will introduce the tasking principles and shows how they are used in both run time systems.
   It furthermore explains a new approach about using OpenMP tasks in HPX.
-  Afterwards section \ref{sec:implem} presents the used benchmark algorithm to compare OpenMP and HPX.
+  Afterwards section \ref{sec:implem} presents the used benchmark algorithms to compare OpenMP and HPX.
   Then a short overview of the experiment environment is granted, followed by the actual experiments in section \ref{sec:Opt}.
-  The two run time systems are compared to each other and a sequential implementation.
-  Further optimization options are tested and evaluated at the end before a conclusion is drawn.
+  The two run time systems are compared to each other and a sequential implementation as reference.
+  Further optimization options are tested and evaluated before a conclusion is drawn at the end.
