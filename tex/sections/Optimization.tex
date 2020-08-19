@@ -178,7 +178,7 @@ For the HPX version the local thread scheduling policy is used.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.45\textwidth]{figures/genericMatrix.png}
-	\caption{Execution times of generic algorithm task matrices}
+	\caption{Execution Times of Generic Algorithm Task Matrices}
 	\label{fig:genMatrix}
 \end{figure}
 
@@ -188,3 +188,26 @@ Increasing the matrix size increases the task size and overall workload as it ca
 The HPX execution time has a quite constant trend and OpenMP's curve decreases with an increasing task size, although the overall workload increases.
 
 
+\subsection{Generic Algorithm - Sanity Tests}
+The last experiment of this section is a sanity test to test the behavior of the OpenMP and HPX implementations in case of one and two tasks in parallel.
+It is expected that when executing the algorithm with a tasks size equal to the size of the array the execution time must be similar to the one of the sequential implementation.
+The generic algorithm is given a task size equal to the size of the array and another one equal to half of the array size.
+Therefore only one or two tasks are in use per turn.
+Furthermore the final summation of all elements is exchanged in favor of the sequential version.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.45\textwidth]{figures/sanity.jpg}
+	\caption{Sanity Tests for Generic Algorithm}
+	\label{fig:sanity}
+\end{figure}
+
+Figure \ref{fig:sanity} shows the execution times for this experiment.
+It can be seen that the OpenMP version using one tasks takes about the same time as the sequential version and using two tasks decreases the execution time significantly.
+For the OpenMP implementation it is important to set the \texttt{OMP\_NUM\_THREADS} variable equal to the simultaneously used tasks.
+Otherwise the OpenMP version takes longer than the sequential implementation.
+These may be due to the fact that different cores may execute the code.
+Doing so forces to use a different part of the CPU cache and nihilists the lines loaded before.
+
+Important to notice is that the HPX implementation takes less time to execute the generic algorithm with one task.
+This is also tested using \textit{system} and \textit{tcalloc} allocation options during build.
+However both options result in no significant difference in execution time.
