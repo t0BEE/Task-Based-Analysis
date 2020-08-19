@@ -59,19 +59,32 @@ long long fibonacci(long long input) {
   \paragraph{Generic Algorithm}
   The aim of this algorithm is to enable task size adjustment and allow to define the number of tasks easily by parameters.
   
-  The algorithm uses two vectors which sizes are defined at the building process.
-  First of all one vector is filled by randomized floating point numbers.
+  The algorithm uses two arrays which sizes are defined at the building process.
+  First of all one array is filled by randomized floating point numbers.
   To compare each run a deterministic seed for the random numbers is chosen.
-  In each turn the element of a vector is equal to a calculation on the element of the other vector.
+  In each turn the element of a vector is equal to a calculation on the element of the other array as it can be seen in a) of figure \ref{fig:gen_algo}.
   The sinus function is calculated on the element before it is multiplied by ten and adjusted to an absolute value.
   This turns are repeated a defined number of times.
-  After the last turn is executed, all elements of the last calculated vector are summed up.
   
-  The task size can be adapted by parameters and defines how many vector elements are calculated by a task.
+  The task size can be adapted by parameters and defines how many array elements are calculated by a task.
   The task size furthermore defines how many tasks are used per run.
-  This number is equal to the vector size divided by the task size.
+  This number is equal to the array size divided by the task size.
   As each turn depends on the execution of the previous turn, the number of dependencies can be increased by using more tasks per turn.
+    
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.48\textwidth]{figures/generic_alorithm.PNG}
+	\caption{Generic Algorithm a) Turns b) Summation}
+	\label{fig:gen_algo}
+\end{figure}
+
+  After the last turn is executed, all elements of the last calculated array are summed up.
+  This is done by building pairs and adding the value of the second member to the value of the first one and storing the results in the first value's element.
+  Part b of figure \ref{fig:gen_algo} illustrates how these pairs are arranged.
+  It also shows how elements are handled that cannot be part of a pair.
+  These leftover element is added to the result of the last pair.
+  This process is continued with the resulting values until only one element is left.
 \\
 
 The code can be found on GitHub~\cite{t0BEE.2020}.
-It is mainly written in C++, but also contains CMake files and scripts for building and formatting the results.
+It is mainly written in C++, but also contains CMake files and scripts for building, execution, and formatting the results.
