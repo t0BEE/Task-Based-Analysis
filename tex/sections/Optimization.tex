@@ -34,7 +34,7 @@ HPX & \(237491.49\) ms & \(5267.67\) ms \\\hline
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.45\textwidth]{figures/tied.JPG}
-	\caption{Execution times of Fibonacci and Merge Sort with tied and untied Tasks in OpenMP}
+	\caption{Execution times of Fibonacci and Merge Sort with tied and untied Tasks in OpenMP (Environment 1, 256 Threads)}
 	\label{fig:tied}
 \end{figure}
 
@@ -60,7 +60,7 @@ The idea is to utilize the dataflow principle to avoid blocked tasks and increas
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.45\textwidth]{figures/fibDataflow.JPG}
-	\caption{Execution times of Fibonacci using HPX and different dataflow constructs}
+	\caption{Execution times of Fibonacci using HPX and different dataflow constructs (Environment 3, 64 Threads)}
 	\label{fig:fib_dataflow}
 \end{figure}
 
@@ -94,19 +94,19 @@ Instead it produces additional overhead.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.45\textwidth]{figures/genSchedule.JPG}
-	\caption{Execution times of the generic algorithm using different scheduling policies}
+	\caption{Execution times of the generic algorithm using different scheduling policies(Environment 2, 64 Threads)}
 	\label{fig:gen_Schedule}
 \end{figure}
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.45\textwidth]{figures/fibSchedule.JPG}
-	\caption{Execution times of the Fibonacci algorithm using different scheduling policies}
+	\caption{Execution times of the Fibonacci algorithm using different scheduling policies (Environment 2, 64 Threads)}
 	\label{fig:fib_Schedule}
 \end{figure}
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.45\textwidth]{figures/sortSchedule.JPG}
-	\caption{Execution times of Merge Sort algorithm using different scheduling policies}
+	\caption{Execution times of Merge Sort algorithm using different scheduling policies (Environment 2, 64 Threads)}
 	\label{fig:sort_Schedule}
 \end{figure}
 
@@ -129,14 +129,14 @@ The total number of elements in the arrays \(1,048,576\) and the arrays are comp
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.45\textwidth]{figures/genericComp.png}
-	\caption{Execution times of generic algorithm with various task sizes}
+	\caption{Execution times of generic algorithm with various task sizes (Environment 2, 64 Threads)}
 	\label{fig:genComp}
 \end{figure}
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.45\textwidth]{figures/genericCompLast.png}
-	\caption{Execution times of generic algorithm with biggest task sizes}
+	\caption{Execution times of generic algorithm with biggest task sizes (Environment 2, 64 Threads)}
 	\label{fig:genComp_Last}
 \end{figure}
 
@@ -178,7 +178,7 @@ For the HPX version the local thread scheduling policy is used.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.45\textwidth]{figures/genericMatrix.png}
-	\caption{Execution Times of Generic Algorithm Task Matrices}
+	\caption{Execution Times of Generic Algorithm Task Matrices (Environment 2, 64 Threads)}
 	\label{fig:genMatrix}
 \end{figure}
 
@@ -197,7 +197,7 @@ Furthermore the final summation of all elements is exchanged in favor of the seq
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.45\textwidth]{figures/sanity.jpg}
-	\caption{Sanity Tests for Generic Algorithm}
+	\caption{Sanity Tests for Generic Algorithm (Environment 3, 64 Threads)}
 	\label{fig:sanity}
 \end{figure}
 

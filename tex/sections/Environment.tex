@@ -4,7 +4,7 @@
 
 The hardware specifications of the three environments can be seen in table \ref{tab:hardEnv}.
 Environment 1 has has an Intel Xeon Phi 7210 processor with 64 cores and the available memory is about 92 GB.
-Environment 2 \textbf{TODO!}
+Environment 2 contains about 124 GB and an AMD EPYC 7551P processor which has a number of cores equal to 32.
 The third environment owns a 64 cored AMD EPYC 7742 processor. The available memory is quite small compared to the other environments, but sufficient.
 It has a size of about 3.8 GB.
 \begin{table}
@@ -13,9 +13,9 @@ It has a size of about 3.8 GB.
 \begin{tabular}[h]{l c c c}
 % 1: argon-knl, 2: argon-epyc, 3: IPVS-epyc
  & Environment 1 & Environment 2 & Environment 3  \\\hline
-CPU & Intel Xeon Phi 7210 &  & AMD EPYC 7742 \\
-RAM & $\sim 92$ GB &  & $\sim 3.8$ GB \\
-Cores & 64 &  & 64 \\\hline
+CPU & Intel Xeon Phi 7210 & AMD EPYC 7551P & AMD EPYC 7742 \\
+RAM & $\sim 92$ GB & $\sim 124$ GB & $\sim 3.8$ GB \\
+Cores & 64 & 32 & 64 \\\hline
 \end{tabular}
 \label{tab:hardEnv}
 \end{table}
