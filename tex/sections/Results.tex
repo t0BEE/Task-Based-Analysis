@@ -23,7 +23,7 @@ The sequential and OpenMP implementation need the fewest time to complete, where
 	\caption{Execution times of Merge Sort (Environment 3, 64 Threads)}
 	\label{fig:sort_NoOp}
   \end{figure}
-  The measurements of figure \ref{fig:sort_NoOp} show the execution times of merge sort.
+  The measurements of figure \ref{fig:sort_NoOp} show the execution times of Merge Sort.
   The algorithm is run on 10.000 random elements which are created in a deterministic way.
   Similar to Fibonacci, merge sort also creates a lot of tasks and HPX shows the slowest execution time.
   Sequential has the shortest average time and the OpenMP average times differ more significantly this time compared to the Fibonacci example.
@@ -41,7 +41,7 @@ It can be seen that the range of OpenMP times is quite big compared to the seque
 Additionally, the OpenMP version takes the longest time to complete the execution whereas HPX is the fastest of these three. 
 
 \subsection{Discussion}
-It can be seen that HPX has some issues keeping up with the sequential and OpenMP implementation of Fibonacci and merge sort.
+It can be seen that HPX has some issues keeping up with the sequential and OpenMP implementation of Fibonacci and Merge Sort.
 Both algorithms spawn a lot of tasks in hierarchical structure.
 This means each task, except of the root task, has a parent task.
 This parent task has to suspend its execution until its child tasks finished their execution.

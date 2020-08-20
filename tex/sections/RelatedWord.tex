@@ -8,19 +8,19 @@
   Furthermore communication phases and the needed amount of communication cannot be identified in advance.
   This is also the case for the amount of computation.\cite{Chakrabarti.1993}
   Parallel execution of while loops or recursive function calls perform irregular parallelism for instance.
-  Tasking explicitly specifies independent units of work which can be executed in parallel.
+  Tasking helps executing these structures by explicitly specifying independent units of work which can be executed in parallel.
   This enables a more dynamic way of parallelization which can handle irregular parallelism.
-  However, a disadvantage of this kind of parallelism is that it increases the complexity of a program and poor implementations can lead to an increased overhead.~\cite{Ayguade.2009}~\cite{LaGrone.2011} 
+  However, a disadvantage of this kind of parallelism is that it increases the complexity of a program and poor implementations can lead to increased overhead.~\cite{Ayguade.2009}~\cite{LaGrone.2011} 
   
   The used runtime system for parallel execution plays a crucial role when it comes to the application's performance using tasking. 
   For example, as the tasking construct creates several tasks which will be executed by threads, the performance of an application relies on the thread scheduler of the runtime system.
   The authors of \cite{LaGrone.2011} discuss different aspects of a runtime system using the task construct.
   The efficiency of such depends on the data structures which store unfinished tasks, manage task switching and regulate task creation.
   Additionally, the data structures to organize task synchronization and manage the memory footprint of a task are also important.
-  The ideal way of work of the thread scheduler, for example, is to maximize concurrency, load balancing and data locality.
-  This can be achieved by different ways to manage queue storing all tasks ready to be executed.
+  The thread scheduler's ideal way of work for example, is to maximize concurrency, load balancing and data locality.
+  This can be achieved by different ways to manage queues which store all tasks ready to be executed.
   Furthermore, the scheduler can be \textit{depth-first} or \textit{breadth-first}.
-  Breadth-first means that child tasks created by the parent task and put into the queue to be scheduled at any time.
+  Breadth-first means that child tasks are created by the parent task and put into the queue to be scheduled at any time.
   Whereas breadth-first schedulers switch to child tasks directly after their creation and execute them.
   This leads to a smaller number of tasks in the queue and less concurrency opportunities.
   However, the data reuse may increase depending on the running application.
@@ -53,7 +53,7 @@
   This means that this task is only allowed to be executed by one thread.
   However this thread can still execute other tasks in case it reaches task scheduling points and switches the execution to another task.
   The suspended task is put into the queue and has to wait until its tied thread is ready to continue its execution.
-  This restriction can be avoided by defining the task \texttt{untied}.
+  This restriction can be avoided by defining the task as \texttt{untied}.
   By doing so, load balancing is increased, but data locality is decreased.~\cite{Ayguade.2009}~\cite{LaGrone.2011}
 
 
@@ -65,7 +65,7 @@
   For instance, adding an \texttt{if}-clause to the task directive and evaluating it to false makes the encountering thread to suspend its current work and execute the child task immediately.
   Furthermore, explicit task scheduling is possible by using the \texttt{taskwait} and \texttt{barrier} directives.
   \texttt{taskwait} suspends the encountering task region and forces it to wait for all child tasks to complete.
-  Additionally \texttt{taskgroup} defines a task region which will be executed and at the end the current task has to wait for all its child and their descendants.~\cite{Qawasmeh.2014}~\cite{Furlinger.2009}
+  Additionally \texttt{taskgroup} defines a task region which will be executed and at the end the current task has to wait for all its child tasks and their descendants.~\cite{Qawasmeh.2014}~\cite{Furlinger.2009}
 
 
 \subsection{HPX}
@@ -115,7 +115,7 @@
 	
 \subsubsection{Tasks in HPX}
   \label{subsubsec:TasksHPX}
-  Various program models increase their efforts on tasking in recent years and increase the possibilities in local parallelism.
+  Various program models have increased their efforts on tasking in recent years and simultaneously the possibilities in local parallelism.
   However, in contrast to the other program models, HPX offers a way for homogeneous execution of local and remote operations.
   This is achieved by using the task model combined with a so called \textit{Active Global Address Space}.
   As all nodes of an application share a common address space, objects and tasks can be migrated across nodes.
@@ -157,14 +157,14 @@
     \textbf{Sort} is a special kind of parallel merge sort execution.\\
     \textbf{SparseLU} calculates a LU matrix factorization over sparse matrices.\\
     \textbf{Strassen} hierarchically decomposes a matrix for multiplication of large dense matrices.\\
-  The suite offers different versions of each benchmark, e.g. a version of Fibonacci using a cut-off to avoid an high amount of tasks.
+  The suite offers different versions of each benchmark, e.g. a version of Fibonacci using a cut-off to avoid a high amount of tasks.
  
  
 \subsection{hpxMP}
   A rather new approach is \textit{hpxMP}.
   It's an implementation of the OpenMP standard using an underlying hpx system and introduced in \cite{hpxMP.2019}.
   The motivation of this approach is to ease the migration from OpenMP to Asynchronous Many-Task (AMT) systems.
-  AMT as a new parallel programming paradigm utilizes fine grained tasks to distribute the workload across multiple node.
+  AMT as a new parallel programming paradigm utilizes fine grained tasks to distribute the workload across multiple nodes.
   It is similar to the well known \textit{MPI+X} approach in which the Message Passing Interface (MPI) is used together with OpenMP for example.
   However, for certain applications MPI+X offers less scalability and parallel efficiency compared to AMTs, for instance in \cite{Dai.11172019}.
   HPX as an example for an AMT might also be more convenient as it follows the newest C++ standard and therefore has a more flatten learning curve for C++ programmers.
@@ -188,7 +188,7 @@
   Additionally, they compared the new hpxMP system with different OpenMP implementations.
   Among other benchmarks, they used the BOTS merge sort algorithm.
   The cut off option is used to decrease the number of tasks spawned.
-  The results show that hpxMP can already reach similar or better performance results for larger input sizes.
+  The results show that hpxMP can already reach similar or better performance results for larger input sizes compared to OpenMP.
   This is due to the fact that joining a large number of tasks after a parallel region produce less overhead using HPX threads.
   Compared to conventional operating system threads HPX threads are lightweight and need less effort when joining.
   However for smaller input sizes hpxMP reaches slower performance.

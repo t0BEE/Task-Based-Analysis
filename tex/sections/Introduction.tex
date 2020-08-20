@@ -1,8 +1,8 @@
 \section{Introduction}
   Task-based programming increased in popularity in recent years.
   It allows to parallelize irregular and dynamic structures like while loops, dynamic linked list traversals and recursive function calls.~\cite{Ayguade.2009}
-  OpenMP and HPX are both parallel run time system which increased focus on task-based parallelism.~\cite{TheSTEARGroup.2020}
-  OpenMP as de facto standard for shared-memory parallel programming did even increase its directive pool concerning tasks in the latest version, 5.0.~\cite{Zhang.2192020}
+  Open Multi-Processing (OpenMP) and High Performance ParalleX (HPX) are both parallel run time system which increased focus on task-based parallelism.~\cite{TheSTEARGroup.2020}
+  OpenMP for example as de facto standard for shared-memory parallel programming did increase its directive pool concerning tasks in the latest version, 5.0.~\cite{Zhang.2192020}
   These two run time systems have not yet been compared in performance of task-based parallel execution.
   This paper tries till fill this gap.
   
@@ -12,7 +12,6 @@
   
   Section \ref{sec:RelWork} will introduce the tasking principles and shows how they are used in both run time systems.
   It furthermore explains a new approach about using OpenMP tasks in HPX.
-  Afterwards section \ref{sec:implem} presents the used benchmark algorithms to compare OpenMP and HPX.
-  Then a short overview of the experiment environment is granted, followed by the actual experiments in section \ref{sec:Opt}.
-  The two run time systems are compared to each other and a sequential implementation as reference.
-  Further optimization options are tested and evaluated before a conclusion is drawn at the end.
+  Then a short overview of the experiment environment is granted and section \ref{sec:implem} presents the used benchmark algorithms to compare OpenMP and HPX.
+  Afterwards some further experiments are conducted in section \ref{sec:Opt}.
+  Optimization options are tested and evaluated before a conclusion is drawn in the final section.

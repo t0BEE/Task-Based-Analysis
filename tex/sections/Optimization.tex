@@ -2,12 +2,12 @@
 \label{sec:Opt}
 \subsection{Fibonacci - Cutoff}
   One possible optimization used in the BOTS benchmarks is implementing a cutoff option.
-  This can be achieved by using if clause which is provided by the task directive as it is described in \cite{MKlemm.2018}.
+  This can be achieved by using an if clause which is provided by the task directive as it is described in \cite{MKlemm.2018}.
   In case this clause evaluates to false no task will be spawned and the execution continues with the function call in a normal sequential way.
   The cutoff value is used to specify at which level the tasking spawning has to be stopped.
   A level parameter is added to the Fibonacci function and increased every recursive call.
   In case the level parameter is equal or greater than the cutoff value, the Fibonacci algorithm will be continued sequentially without spawning tasks. 
-  Table \ref{tab:cutoff} shows the results without a cutoff and with a cutoff level equal to eight.
+  Table \ref{tab:cutoff} shows the results without a cutoff and with a cutoff level equal to eight calculating the Fibonacci number of 22.
   The mean values of 100 runs are \(2057.34\) ms and \(394.87\) ms for OpenMP without and with a cutoff.
 The average measurements for HPX are \(237491.49\) ms without and \(5267.67\) ms with cutoff.
 It can be seen that the HPX implementation benefits more by the cutoff.
@@ -83,7 +83,7 @@ Instead it produces additional overhead.
  \textbf{local} only maintains one queue per OS thread the work is put to and pulled from.\\
  \textbf{abp-priority} is similar to the local-priority policy.
  There are also a global high priority and low priority queue.
- However each OS threads owns a double ended lock free queue.
+ However all OS threads own a double ended lock free queue.
  Elements can be added and removed on both sides of this type of queue.
  Furthermore the abp-priority policy can also be used in fifo and lifo version.\\
  \textbf{static} has one queue per OS thread and tasks are distributed by round robin.
@@ -112,19 +112,19 @@ Instead it produces additional overhead.
 
 The figures show the execution time of the three implemented algorithms with the previously explained thread scheduling policies.
 The parameters are the same as stated in section \ref{sec:implem}.
-Figure \ref{fig:gen_Schedule} is a boxplot diagram of the generic algorithm, figure \ref{fig:fib_Schedule} shows the execution times of the Fibonacci algorithm and figure \ref{fig:sort_Schedule} illustrates the execution times of merge sort.
+Figure \ref{fig:gen_Schedule} is a boxplot diagram of the generic algorithm, figure \ref{fig:fib_Schedule} shows the execution times of the Fibonacci algorithm and figure \ref{fig:sort_Schedule} illustrates the execution times of Merge Sort.
 It can be seen that the local policy accelerates the generic algorithm execution significantly compared to the other policies.
 This may be because it produces little overhead as it does not have to maintain priority queues.
 The significant difference to the static scheduling policy is that, when using the local policy, tasks are not distributed via round robin and task stealing is allowed.
 These facts may lead to a better load balancing although the task size does not vary much.
 The other two algorithms show no significant different in the policies.
 However a trend can be seen as the mean values of the lifo policies show a shorter execution time in all cases.
-This may be due to the fact that Fibonacci and merge sort create a task hierarchy in which the early created tasks are suspended till the end.
+This may be due to the fact that Fibonacci and Merge Sort create a task hierarchy in which the early created tasks are suspended till the end.
 
 \subsection{Generic Algorithm - Number of Tasks}
 For a better comparison of the three algorithms, various task sizes might be used.
 The generic algorithm allows to adjust task sizes by parameters.
-The second environment is taken for this test run in which tasks sizes ranging from 10 elements to 500 elements per task.
+The second environment is taken for this test run in which tasks sizes ranging from 10 elements to 500 elements per task in steps of 10.
 The total number of elements in the arrays \(1,048,576\) and the arrays are computed 50 times.
 \begin{figure}[h]
 	\centering
@@ -140,18 +140,18 @@ The total number of elements in the arrays \(1,048,576\) and the arrays are comp
 	\label{fig:genComp_Last}
 \end{figure}
 
-Figure \ref{fig:genComp} illustrates the execution time for all three elements.
+Figure \ref{fig:genComp} illustrates the execution time for all three implementations.
 The mean value of 50 measurements is taken.
 It can be seen that the sequential and HPX implementation are quite constant.
-In contrast, OpenMP takes more time when the task size is rather small and reaches the execution time of the sequential version at a task size of 410.
+In contrast, OpenMP takes more time when the task size is rather small and reaches the execution time of the sequential version at a task size of $\sim $410.
 If the task size is bigger OpenMP takes less time compared to the sequential implementation.
 However, it cannot reach the times of the HPX implementation.
 Figure \ref{fig:genComp_Last} shows the same data however only the task sizes greater and equal to 300.
 Especially, the trends of OpenMP and the sequential version can be seen in detail.
 Important to mention is that changing the task size in the generic algorithm does not increase the overall workload.
-This can be seen at the sequential implementation.
+This can be seen at the sequential implementation's constant graph.
 Changing the task size does only increase or decrease the tasks which are created.
-In contrast to the Fibonacci algorithm and merge sort, the generic algorithm does not create hierarchical dependencies.
+In contrast to the Fibonacci algorithm and Merge Sort, the generic algorithm does not create hierarchical dependencies.
 Task synchronization is done when all elements of an array are calculated.
 HPX benefits from that structure as the lightweight threads used produce less overhead when forking and joining.
 The scheduling overhead is smaller than the benefit from the parallel execution and therefore HPX becomes faster than the sequential implementation.
@@ -167,10 +167,18 @@ The workload can be adjusted by a parameter and varies in this experiment.
 In contrast to the experiments before, each task does only contain one element.
 This setup does allow to have a constant number of tasks with an option to increase or decrease the task size and overall workload.
 In each task the elements value is multiplied a defined amount of times.
-The parameter for defining this size is squared, which means that if the parameter is equal to 3 the element is multiplied 9 times.
+The parameter for defining this size is squared, which means that if the parameter is equal to 3 the element of the array is multiplied 9 times.
 Each time the value is multiplied by the number of that multiply calculation.
-In the example before the first value will be multiplied by 1 and multiplied by 9 in the last calculation.
+In the example before first value will be multiplied by 1, then by 2, 3 and so on until it is multiplied by 9 in the last calculation.
 The sinus function is then applied on the results and all of them are summed up and copied to the next array.
+This principle is illustrated in \ref{fig:genMatrix_algo}.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.45\textwidth]{figures/genericMatrix_algo.png}
+	\caption{Principle of Generic Matrix Algorithm}
+	\label{fig:genMatrix_algo}
+\end{figure}
+
 This experiment is also run on environment two having the same array size as the experiment before.
 The number of calculations starts with 1x1 and increases by 2 in each dimension.
 The biggest task size reached is 21x21.
@@ -178,19 +186,27 @@ For the HPX version the local thread scheduling policy is used.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.45\textwidth]{figures/genericMatrix.png}
-	\caption{Execution Times of Generic Algorithm Task Matrices (Environment 2, 64 Threads)}
+	\caption{Execution Times of Generic Algorithm Task Matrices of all Versions and only HPX(Environment 2, 64 Threads)}
 	\label{fig:genMatrix}
 \end{figure}
 
-Figure \ref{fig:genMatrix} shows the average execution time of 15 runs.
+Figure \ref{fig:genMatrix} part a) shows the average execution time of 25 runs.
 As already mentioned, the number of tasks are the same for all executions.
 Increasing the matrix size increases the task size and overall workload as it can be seen by the sequential execution's curve.
-The HPX execution time has a quite constant trend and OpenMP's curve decreases with an increasing task size, although the overall workload increases.
+The HPX execution time looks like to have a quite constant trend.
+However, this is due to the graphical illustration.
+Having only the HPX data points in part b) of figure \ref{fig:genMatrix} one can see that the execution time of HPX also increases.
+The numbers are just so small that it cannot be seen in the scatter plot above.
+
+OpenMP's curve decreases with an increasing task size, although the overall workload increases.
+This behavior is quite strange as the number of tasks stays constant.
+Running results of the same experiment with setting \texttt{OMP\_NUM\_THREADS=1} are illustrated in figure \textbf{TODO}.
+
 
 
 \subsection{Generic Algorithm - Sanity Tests}
-The last experiment of this section is a sanity test to test the behavior of the OpenMP and HPX implementations in case of one and two tasks in parallel.
-It is expected that when executing the algorithm with a tasks size equal to the size of the array the execution time must be similar to the one of the sequential implementation.
+The last experiment of this section is a sanity test to test the behavior of the OpenMP and HPX implementations using one and two tasks in parallel.
+It is expected that when executing the generic algorithm with a tasks size equal to the size of the array the execution time must be similar to the one of the sequential implementation.
 The generic algorithm is given a task size equal to the size of the array and another one equal to half of the array size.
 Therefore only one or two tasks are in use per turn.
 Furthermore the final summation of all elements is exchanged in favor of the sequential version.

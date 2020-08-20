@@ -6,7 +6,7 @@
   
   \paragraph{Fibonacci}
   The algorithm can spawn a high amount of tasks with small workload.
-  The workload of forking and joining new threads might have the biggest impact when it comes to performance.
+  The workload of forking and joining new threads and scheduling this amount of tasks might have the biggest impact when it comes to performance.
   
   The implementation is done without cut offs for the HPX and OpenMP versions.
   This means that every recursive call of the Fibonacci function creates a new task.
@@ -40,8 +40,9 @@ long long fibonacci(long long input) {
   if (input < 2) return input;
   hpx::future<long long> n1 =
       hpx::async(fibonacci, input - 1);
-  long long n2 = fibonacci(input - 2);
-  return n1.get() + n2;
+  hpx::future<long long> n2 = 
+      hpx::async(fibonacci, input - 2);
+  return n1.get() + n2.get();
 }
 \end{lstlisting}
   The HPX implementation of the Fibonacci algorithm can be seen in listing \ref{lst1:fibHPX}.
@@ -51,9 +52,9 @@ long long fibonacci(long long input) {
   \\
  
   \paragraph{Merge Sort}
-  The Sort algorithm of BOTS is slightly adjusted to a normal merge sort.
+  The Sort algorithm of BOTS is slightly adjusted to a normal Merge Sort.
   It is a suitable use case, easy to implement and can also spawn a high number of tasks.
-  Similar to Fibonacci the merge sort is also implemented without cut off. 
+  Similar to Fibonacci Merge Sort is also implemented without cut off. 
   \\
   
   \paragraph{Generic Algorithm}
@@ -69,7 +70,7 @@ long long fibonacci(long long input) {
   The task size can be adapted by parameters and defines how many array elements are calculated by a task.
   The task size furthermore defines how many tasks are used per run.
   This number is equal to the array size divided by the task size.
-  As each turn depends on the execution of the previous turn, the number of dependencies can be increased by using more tasks per turn.
+  As each turn depends on the execution of the previous turn, synchronization is done only at the end of a turn.
     
 \begin{figure}[htbp]
 	\centering
