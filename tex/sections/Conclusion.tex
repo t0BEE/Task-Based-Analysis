@@ -12,9 +12,11 @@ They produce less overhead when forking and joining and let HPX perform best for
 The paper furthermore analyzed optimizations for HPX, e.g. using dataflow principles or different scheduling policies.
 These experiments did not really lead to any significant gain in performance, however showing slight trends.
 For example the local thread scheduling policy for the generic algorithm.
-
+\\
 
 A remaining open field concerning both run time systems is a comparison between their GPU support.
 As HPX and OpenMP may move computations to these accelerators it might be interesting to see how both perform utilizing these with tasks.
 Furthermore, experiments are yet only done using these three algorithms.
 Both systems should be further tested on algorithms showing a different behavior concerning task sizes, number of tasks and task hierarchy.
+And finally the results of subsection \ref{subsec:genAlgo} could not been explained yet.
+Further investigation is needed.

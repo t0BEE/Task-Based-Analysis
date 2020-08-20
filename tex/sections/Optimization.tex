@@ -161,6 +161,7 @@ However, reaching a certain task size OpenMP also takes less time than the seque
 
 
 \subsection{Generic Algorithm - Task Sizes}
+\label{subsec:genAlgo}
 As the previous example of the generic algorithm does only increase the amount of tasks used and not the overall workload, another approach is also implemented.
 In this experiment the generic algorithm is adjusted to produce a squared workload per array element.
 The workload can be adjusted by a parameter and varies in this experiment.
@@ -179,14 +180,14 @@ This principle is illustrated in \ref{fig:genMatrix_algo}.
 	\label{fig:genMatrix_algo}
 \end{figure}
 
-This experiment is also run on environment two having the same array size as the experiment before.
+This experiment is also run on environment four having the same array size as the experiment before.
 The number of calculations starts with 1x1 and increases by 2 in each dimension.
 The biggest task size reached is 21x21.
 For the HPX version the local thread scheduling policy is used.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.45\textwidth]{figures/genericMatrix.png}
-	\caption{Execution Times of Generic Algorithm Task Matrices of all Versions and only HPX(Environment 2, 64 Threads)}
+	\caption{Execution Times of Generic Algorithm Task Matrices of all Versions and only HPX(Environment 4, 12 Threads)}
 	\label{fig:genMatrix}
 \end{figure}
 
@@ -200,9 +201,21 @@ The numbers are just so small that it cannot be seen in the scatter plot above.
 
 OpenMP's curve decreases with an increasing task size, although the overall workload increases.
 This behavior is quite strange as the number of tasks stays constant.
-Running results of the same experiment with setting \texttt{OMP\_NUM\_THREADS=1} are illustrated in figure \textbf{TODO}.
+Running results of the same experiment with setting different amounts of threads are illustrated in figure \ref{fig:genMatrix_Threaded}.
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.45\textwidth]{figures/genericMatrix_Threaded.png}
+	\caption{Execution Times of Generic Algorithm Task Matrices for different amount of threads a) = 1 b) = 2 c) = 4(Environment 4)}
+	\label{fig:genMatrix_Threaded}
+\end{figure}
 
+Part a) shows results for \texttt{OMP\_NUM\_THREADS=1} and \texttt{--hpx:threads=1}.
+OpenMP here behaves as expected.
+Part b) shows the results for setting the used threads equal to 2 and c) for 4.
+There is the possibility that OpenMP might have some problems with bigger amounts of threads for this algorithm.
+At least in case the task size is rather small.
+However, it is not possible yet to explain this behavior in detail.
 
 \subsection{Generic Algorithm - Sanity Tests}
 The last experiment of this section is a sanity test to test the behavior of the OpenMP and HPX implementations using one and two tasks in parallel.
