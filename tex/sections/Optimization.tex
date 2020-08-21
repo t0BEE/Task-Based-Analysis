@@ -211,10 +211,11 @@ Running results of the same experiment with setting different amounts of threads
 \end{figure}
 
 Part a) shows results for \texttt{OMP\_NUM\_THREADS=1} and \texttt{--hpx:threads=1}.
-OpenMP here behaves as expected.
-Part b) shows the results for setting the used threads equal to 2 and c) for 4.
+Part b) illustrates the results for setting the used threads equal to 2 and c) for 4.
+OpenMP here behaves as expected except for a spike using small task sizes.
+The curve is raising as the overall workload increases.
 There is the possibility that OpenMP might have some problems with bigger amounts of threads for this algorithm.
-At least in case the task size is rather small.
+At least in case of small task sizes.
 However, it is not possible yet to explain this behavior in detail.
 
 \subsection{Generic Algorithm - Sanity Tests}
